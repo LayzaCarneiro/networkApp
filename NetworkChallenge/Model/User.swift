@@ -13,11 +13,3 @@ struct User: Codable {
     let name: String
     let avatar: String?
 }
-
-extension User {
-    struct Create: Codable {
-        let name: String
-        let username: String
-        let password: String
-    }
-}
