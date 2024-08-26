@@ -1,11 +1,5 @@
-//
-//  Network.swift
-//  NetworkChallenge
-//
-//  Created by Layza Maria Rodrigues Carneiro on 22/08/24.
-//
-
 import Foundation
+
 
 struct SocialNetworkExecutable {
 
@@ -21,7 +15,7 @@ struct SocialNetworkExecutable {
             print(users.count, "usuários:", users.map(\.username))
 
             // Create User
-            var token = try await API.createUser(on: baseURL, name: "")
+            var token = try await API.createUser(on: baseURL)
             print(token)
 
             // Login
@@ -30,6 +24,12 @@ struct SocialNetworkExecutable {
             
             // let token = "<seu token mockado aqui>"
 
+            // Profile
+            var profile = try await API.me(on: baseURL, with: token)
+            print(profile)
+
+            // Logout
+            try await API.logout(on: baseURL, with: token)
 
         } catch APIError.apiError(let code, let body) {
             print("Error code: \(code)")
@@ -39,5 +39,8 @@ struct SocialNetworkExecutable {
         } catch {
             print(error)
         }
+
     }
+
+
 }

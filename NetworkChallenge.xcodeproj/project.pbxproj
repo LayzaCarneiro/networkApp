@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE0D2A642C7CBCF7007DF9D1 /* User+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A632C7CBCF7007DF9D1 /* User+Create.swift */; };
+		AE0D2A662C7CBD07007DF9D1 /* Post+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A652C7CBD07007DF9D1 /* Post+Create.swift */; };
+		AE0D2A682C7CBD12007DF9D1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A672C7CBD12007DF9D1 /* Post.swift */; };
+		AE0D2A6E2C7CBD53007DF9D1 /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A692C7CBD52007DF9D1 /* LogoutView.swift */; };
+		AE0D2A6F2C7CBD53007DF9D1 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A6A2C7CBD52007DF9D1 /* CreateUserView.swift */; };
+		AE0D2A702C7CBD53007DF9D1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A6B2C7CBD52007DF9D1 /* LoginView.swift */; };
+		AE0D2A712C7CBD53007DF9D1 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A6C2C7CBD53007DF9D1 /* FeedView.swift */; };
+		AE0D2A722C7CBD53007DF9D1 /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A6D2C7CBD53007DF9D1 /* CreatePostView.swift */; };
+		AE0D2A762C7CBD65007DF9D1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A732C7CBD65007DF9D1 /* LoginViewModel.swift */; };
+		AE0D2A782C7CBD65007DF9D1 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A752C7CBD65007DF9D1 /* PostViewModel.swift */; };
 		AE19CA152C77632100154034 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA142C77632100154034 /* User.swift */; };
 		AE19CA182C77634700154034 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA172C77634700154034 /* API.swift */; };
 		AE19CA1A2C77637F00154034 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA192C77637F00154034 /* Session.swift */; };
 		AE19CA1C2C77639800154034 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA1B2C77639800154034 /* Network.swift */; };
 		AE19CA202C77657500154034 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA1F2C77657500154034 /* UserViewModel.swift */; };
 		AE19CA222C77688C00154034 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA212C77688C00154034 /* APIError.swift */; };
-		AE19CA242C776D6B00154034 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA232C776D6B00154034 /* MapView.swift */; };
 		AE9C48E92C775FF9002170A7 /* NetworkChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C48E82C775FF9002170A7 /* NetworkChallengeApp.swift */; };
 		AE9C48EB2C775FF9002170A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C48EA2C775FF9002170A7 /* ContentView.swift */; };
 		AE9C48ED2C775FFA002170A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE9C48EC2C775FFA002170A7 /* Assets.xcassets */; };
@@ -21,13 +30,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE0D2A632C7CBCF7007DF9D1 /* User+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Create.swift"; sourceTree = "<group>"; };
+		AE0D2A652C7CBD07007DF9D1 /* Post+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Post+Create.swift"; sourceTree = "<group>"; };
+		AE0D2A672C7CBD12007DF9D1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		AE0D2A692C7CBD52007DF9D1 /* LogoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogoutView.swift; path = ../../../../Desktop/Arquivo/NetworkApp/View/LogoutView.swift; sourceTree = "<group>"; };
+		AE0D2A6A2C7CBD52007DF9D1 /* CreateUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateUserView.swift; path = ../../../../Desktop/Arquivo/NetworkApp/View/CreateUserView.swift; sourceTree = "<group>"; };
+		AE0D2A6B2C7CBD52007DF9D1 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = ../../../../Desktop/Arquivo/NetworkApp/View/LoginView.swift; sourceTree = "<group>"; };
+		AE0D2A6C2C7CBD53007DF9D1 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedView.swift; path = ../../../../Desktop/Arquivo/NetworkApp/View/FeedView.swift; sourceTree = "<group>"; };
+		AE0D2A6D2C7CBD53007DF9D1 /* CreatePostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreatePostView.swift; path = ../../../../Desktop/Arquivo/NetworkApp/View/CreatePostView.swift; sourceTree = "<group>"; };
+		AE0D2A732C7CBD65007DF9D1 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewModel.swift; path = ../../../../Desktop/Arquivo/NetworkApp/ViewModel/LoginViewModel.swift; sourceTree = "<group>"; };
+		AE0D2A752C7CBD65007DF9D1 /* PostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostViewModel.swift; path = ../../../../Desktop/Arquivo/NetworkApp/ViewModel/PostViewModel.swift; sourceTree = "<group>"; };
 		AE19CA142C77632100154034 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AE19CA172C77634700154034 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		AE19CA192C77637F00154034 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		AE19CA1B2C77639800154034 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		AE19CA1F2C77657500154034 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		AE19CA212C77688C00154034 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		AE19CA232C776D6B00154034 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AE9C48E52C775FF9002170A7 /* NetworkChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9C48E82C775FF9002170A7 /* NetworkChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChallengeApp.swift; sourceTree = "<group>"; };
 		AE9C48EA2C775FF9002170A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +69,9 @@
 			children = (
 				AE19CA142C77632100154034 /* User.swift */,
 				AE19CA192C77637F00154034 /* Session.swift */,
+				AE0D2A632C7CBCF7007DF9D1 /* User+Create.swift */,
+				AE0D2A652C7CBD07007DF9D1 /* Post+Create.swift */,
+				AE0D2A672C7CBD12007DF9D1 /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -67,7 +88,11 @@
 		AE19CA1D2C77654000154034 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AE19CA232C776D6B00154034 /* MapView.swift */,
+				AE0D2A6D2C7CBD53007DF9D1 /* CreatePostView.swift */,
+				AE0D2A6A2C7CBD52007DF9D1 /* CreateUserView.swift */,
+				AE0D2A6C2C7CBD53007DF9D1 /* FeedView.swift */,
+				AE0D2A6B2C7CBD52007DF9D1 /* LoginView.swift */,
+				AE0D2A692C7CBD52007DF9D1 /* LogoutView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -76,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				AE19CA1F2C77657500154034 /* UserViewModel.swift */,
+				AE0D2A732C7CBD65007DF9D1 /* LoginViewModel.swift */,
+				AE0D2A752C7CBD65007DF9D1 /* PostViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -193,14 +220,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE19CA1A2C77637F00154034 /* Session.swift in Sources */,
+				AE0D2A6F2C7CBD53007DF9D1 /* CreateUserView.swift in Sources */,
 				AE9C48EB2C775FF9002170A7 /* ContentView.swift in Sources */,
+				AE0D2A702C7CBD53007DF9D1 /* LoginView.swift in Sources */,
+				AE0D2A6E2C7CBD53007DF9D1 /* LogoutView.swift in Sources */,
+				AE0D2A642C7CBCF7007DF9D1 /* User+Create.swift in Sources */,
+				AE0D2A682C7CBD12007DF9D1 /* Post.swift in Sources */,
 				AE19CA1C2C77639800154034 /* Network.swift in Sources */,
+				AE0D2A712C7CBD53007DF9D1 /* FeedView.swift in Sources */,
 				AE9C48E92C775FF9002170A7 /* NetworkChallengeApp.swift in Sources */,
+				AE0D2A762C7CBD65007DF9D1 /* LoginViewModel.swift in Sources */,
 				AE19CA202C77657500154034 /* UserViewModel.swift in Sources */,
+				AE0D2A662C7CBD07007DF9D1 /* Post+Create.swift in Sources */,
 				AE19CA222C77688C00154034 /* APIError.swift in Sources */,
 				AE19CA182C77634700154034 /* API.swift in Sources */,
-				AE19CA242C776D6B00154034 /* MapView.swift in Sources */,
+				AE0D2A722C7CBD53007DF9D1 /* CreatePostView.swift in Sources */,
 				AE19CA152C77632100154034 /* User.swift in Sources */,
+				AE0D2A782C7CBD65007DF9D1 /* PostViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
