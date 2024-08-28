@@ -1,113 +1,78 @@
 import SwiftUI
 
-//struct ContentView: View {
-//    @ObservedObject var viewModelUser = UserViewModel()
-//    @ObservedObject var viewModelPost = PostViewModel()
-//    
-//    var body: some View {
-//
-//        VStack {
-//            if viewModelUser.users.isEmpty {
-//                Text("Nenhum usuário encontrado.")
-//                    .padding()
-//            } else {
-//
-//                List(viewModelUser.users, id: \.id) { user in
-//                    Text(user.username)
-//                }
-//            }
-//
-//            if let errorMessage = viewModelUser.errorMessage {
-//                Text("Erro: \(errorMessage)")
-//                    .foregroundColor(.red)
-//                    .padding()
-//            }
-//        }
-//        .onAppear {
-//            Task {
-//                await viewModelUser.fetchUsers()
-//            }
-//        }
-//        .padding()
-//
-//        VStack {
-//            if viewModelPost.posts.isEmpty {
-//                Text("Nenhum post encontrado.")
-//                    .padding()
-//            } else {
-//
-//                List(viewModelPost.posts, id: \.id) { post in
-//                    Text(post.text)
-//                }
-//            }
-//
-//            if let errorMessage = viewModelPost.errorMessage {
-//                Text("deu erro: \(errorMessage)")
-//                    .foregroundColor(.red)
-//                    .padding()
-//            }
-//        }
-//        .onAppear {
-//            Task {
-//                await viewModelPost.fetchPosts()
-//            }
-//
-//        }
-//        .padding()
-//    }
-//}
-//
-
 struct ContentView: View {
     
-    @ObservedObject private var viewModel = LoginViewModel()
-    @State private var isAuthenticated: Bool = false
-    
+    @ObservedObject private var viewModelLogin = LoginViewModel()
+    @ObservedObject private var viewModelPost = PostViewModel()
+
+    @State private var navFeed = false
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                TextField("Usuario", text: $viewModel.username)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                TextField("Senha", text: $viewModel.password)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-            
-                Button {
+
+                VStack(spacing: 15) {
+                    CustomTextField(placeholder: "Usuário", text: $viewModelLogin.username)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                    CustomTextField(placeholder: "Senha", text: $viewModelLogin.password, isSecure: true)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                }
+                .padding(.horizontal, 20)
+
+                Button(action: {
                     Task {
                         do {
-                            try await viewModel.login(on: viewModel.baseURL)
-                            isAuthenticated = true
-                            try await viewModel.me(on: viewModel.baseURL, with: viewModel.tokenLogin ?? "")
+                            try await viewModelLogin.login(on: viewModelLogin.baseURL)
+                            print("fez login")
+                            navFeed = true
                         } catch {
-                            print("Erro: \(error.localizedDescription)")
+                            print("Login error: \(error)")
                         }
                     }
-                } label: {
-                    Text("Login")
+                }) {
+                    Text("Fazer Login")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .cornerRadius(10)
                 }
-                .padding()
-                .navigationTitle("Página Inicial")
-                
-                Button {
-                    Task {
-                        try await viewModel.logout(on: viewModel.baseURL, with: viewModel.tokenLogin ?? "")
-                        isAuthenticated = false
-                    }
-                } label: {
-                    Text("Logout")
-                }
-                .padding()
-                
-                if(isAuthenticated) {
-                    LikesView(userToken: viewModel.tokenLogin ?? "")
+                .padding(.horizontal, 20)
+                .navigationDestination(isPresented: $navFeed) {
+                    FeedView(
+                        viewModelLogin: viewModelLogin,
+                        viewModelPost: viewModelPost,
+                        onLogout: {
+                            viewModelLogin.username = ""
+                            viewModelLogin.password = ""
+                        }
+                    )
                 }
             }
             .padding()
+        }
+    }
+}
+
+struct CustomTextField: View {
+    let placeholder: String
+    @Binding var text: String
+    var isSecure: Bool = false
+    
+    var body: some View {
+        if isSecure {
+            SecureField(placeholder, text: $text)
+                .padding()
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(10)
+        } else {
+            TextField(placeholder, text: $text)
+                .padding()
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(10)
         }
     }
 }

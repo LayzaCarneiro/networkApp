@@ -1,10 +1,12 @@
 import Foundation
 
-struct Post: Decodable {
+struct Post: Decodable, Identifiable {
     let id: UUID
     let text: String
     let user_id: String
     let user: User?
     let media: String?
-    let likeCount: Int?
+    let like_count: Int?
+//    let created_at: Date
+//    let updated_at: Date?
 }

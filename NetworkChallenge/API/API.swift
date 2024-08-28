@@ -6,13 +6,16 @@
 //
 
 import Foundation
-import UIKit
 
 enum API {
     
     static func searchPosts(on baseURL: URL) async throws -> [Post] {
         let url = baseURL.appending(path: "posts")
-        let (data, response) = try await URLSession.shared.data(from: url)
+        var components = URLComponents(string: url.absoluteString)!
+        components.queryItems = [
+            URLQueryItem(name: "expand", value: "user_id")
+        ]
+        let (data, response) = try await URLSession.shared.data(from: components.url!)
         
         try check(data: data, response: response)
         let posts = try JSONDecoder().decode([Post].self, from: data)
@@ -24,8 +27,18 @@ enum API {
         let (data, response) = try await URLSession.shared.data(from: url)
         
         try check(data: data, response: response)
+        // DECODE! Bytes -> [User]
         let users = try JSONDecoder().decode([User].self, from: data)
         return users
+    }
+    
+    static func searchReports(on baseURL: URL, postID: UUID) async throws -> [Report] {
+        let url = baseURL.appending(path: "reports/\(postID.uuidString)")
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        try check(data: data, response: response)
+        let reports = try JSONDecoder().decode([Report].self, from: data)
+        return reports
     }
     
     static func check(data: Data?, response: URLResponse) throws {
@@ -118,54 +131,4 @@ enum API {
         
         print(session.token)
     }
-    
-    static func likePost(on baseURL: URL, postId: UUID, with token: String) async throws {
-        let url = baseURL.appending(path: "likes/\(postId)")
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-            
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        try check(data: data, response: response)
-        
-        print("Like")
-    }
-    
-    static func dislikePost(on baseURL: URL, postId: UUID, with token: String) async throws {
-        let url = baseURL.appending(path: "likes/\(postId)")
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-            
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        try check(data: data, response: response)
-        
-        print("Dislike")
-    }
-
-    static func postLikingUsers(on baseURL: URL, postId: UUID, with token: String) async throws -> [User] {
-        let url = baseURL.appending(path: "likes/liking_users/\(postId)")
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-            
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        try check(data: data, response: response)
-        
-        let users = try JSONDecoder().decode([User].self, from: data)
-        return users
-    }
-    
 }

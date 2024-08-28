@@ -7,15 +7,14 @@
 
 import SwiftUI
 import Combine
-import UIKit
 
 class UserViewModel: ObservableObject {
     @Published var users: [User] = []
     @Published var errorMessage: String?
-    
     @Published var name: String = ""
     @Published var username: String = ""
     @Published var password: String = ""
+    @Published var user: User?
 
     let baseURL = URL(string: "http://127.0.0.1:8080")!
 
@@ -44,6 +43,23 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    func patchAvatar(with token: String, with avatar: Data, on baseURL: URL) async throws {
+        let url = baseURL.appendingPathComponent("users/avatar")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = avatar
+        request.allHTTPHeaderFields = [
+            "Content-Type": "image/png"
+        ]
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        try check(data: data, response: response)
+//        self.user?.avatar = avatarBase64
+    }
+
+
     func createUser(on baseURL: URL) async throws -> String {
         let url = baseURL.appending(path: "users")
         
@@ -88,37 +104,4 @@ class UserViewModel: ObservableObject {
         return session.token
     }
 
-//    func updateAvatar(on baseURL: URL) async throws -> String {
-//        Task {
-//            do {
-//                guard let image = UIImage(named: "defaultAvatar") else {
-//                    throw URLError(.fileDoesNotExist)
-//                }
-//                
-//                guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-//                    throw URLError(.badURL)
-//                }
-//                
-//                let base64String = imageData.base64EncodedString()
-//                
-//                let requestBody: [String: String] = [
-//                    "id": user.id.uuidString,
-//                    "username": user.username,
-//                    "name": user.name,
-//                    "avatar": base64String
-//                ]
-//                
-//                let token = try await API.updateAvatar(on: baseURL, requestBody: requestBody)
-//                
-//                DispatchQueue.main.async {
-//                    print("Avatar atualizado com sucesso! Token: \(token)")
-//                }
-//                
-//            } catch {
-//                DispatchQueue.main.async {
-//                    self.errorMessage = "Erro ao atualizar o avatar: \(error.localizedDescription)"
-//                }
-//            }
-//        }
-//    }
 }
