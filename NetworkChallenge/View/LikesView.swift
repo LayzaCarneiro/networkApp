@@ -19,7 +19,7 @@ struct LikesView: View {
                     .padding()
             } else {
                 
-                List(viewModelPost.posts, id: \.id) { post in
+                List($viewModelPost.posts, id: \.id) { post in
                     VStack(alignment: .leading) {
                         Text(post.text)
                             .font(.headline)
