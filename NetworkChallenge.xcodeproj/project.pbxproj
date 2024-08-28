@@ -62,7 +62,6 @@
 		AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChallengeApp.swift; sourceTree = "<group>"; };
 		AE26E1992C7F4BEF005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Downloads/Arquivo/RedeSocial/Assets.xcassets; sourceTree = "<group>"; };
 		AE26E19B2C7F4C01005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../Downloads/Arquivo/RedeSocial/Assets.xcassets; sourceTree = "<group>"; };
-		AE26E19D2C7F4C03005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE26E19E2C7F4C07005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE9C48E52C775FF9002170A7 /* NetworkChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9C48EA2C775FF9002170A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,7 +82,6 @@
 		AE19CA132C77631100154034 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AE26E19D2C7F4C03005DA1E4 /* Assets.xcassets */,
 				AE19CA192C77637F00154034 /* Session.swift */,
 				AE0D2A672C7CBD12007DF9D1 /* Post.swift */,
 				AE0D2A652C7CBD07007DF9D1 /* Post+Create.swift */,
