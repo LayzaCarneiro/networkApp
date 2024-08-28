@@ -18,6 +18,7 @@
 		AE9C48EB2C775FF9002170A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C48EA2C775FF9002170A7 /* ContentView.swift */; };
 		AE9C48ED2C775FFA002170A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE9C48EC2C775FFA002170A7 /* Assets.xcassets */; };
 		AE9C48F02C775FFA002170A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */; };
+		D52DED6D2C7DF0A700BF9315 /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52DED6C2C7DF0A700BF9315 /* TimeLineView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		AE9C48EA2C775FF9002170A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AE9C48EC2C775FFA002170A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D52DED6C2C7DF0A700BF9315 /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				AE19CA232C776D6B00154034 /* MapView.swift */,
+				D52DED6C2C7DF0A700BF9315 /* TimeLineView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				AE19CA182C77634700154034 /* API.swift in Sources */,
 				AE19CA242C776D6B00154034 /* MapView.swift in Sources */,
 				AE19CA152C77632100154034 /* User.swift in Sources */,
+				D52DED6D2C7DF0A700BF9315 /* TimeLineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +338,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NetworkChallenge/Preview Content\"";
-				DEVELOPMENT_TEAM = ZFH4AF7HSL;
+				DEVELOPMENT_TEAM = 9CWTXA2Q3Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -363,7 +367,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NetworkChallenge/Preview Content\"";
-				DEVELOPMENT_TEAM = ZFH4AF7HSL;
+				DEVELOPMENT_TEAM = 9CWTXA2Q3Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
