@@ -9,50 +9,52 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-
-                VStack(spacing: 15) {
-                    CustomTextField(placeholder: "Usuário", text: $viewModelLogin.username)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                    CustomTextField(placeholder: "Senha", text: $viewModelLogin.password, isSecure: true)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                }
-                .padding(.horizontal, 20)
-
-                Button(action: {
-                    Task {
-                        do {
-                            try await viewModelLogin.login(on: viewModelLogin.baseURL)
-                            print("fez login")
-                            navFeed = true
-                        } catch {
-                            print("Login error: \(error)")
-                        }
+            ZStack {
+                VStack(spacing: 20) {
+                    
+                    VStack(spacing: 15) {
+                        CustomTextField(placeholder: "Usuário", text: $viewModelLogin.username)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                        CustomTextField(placeholder: "Senha", text: $viewModelLogin.password, isSecure: true)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                     }
-                }) {
-                    Text("Fazer Login")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal, 20)
-                .navigationDestination(isPresented: $navFeed) {
-                    FeedView(
-                        viewModelLogin: viewModelLogin,
-                        viewModelPost: viewModelPost,
-                        onLogout: {
-                            viewModelLogin.username = ""
-                            viewModelLogin.password = ""
+                    .padding(.horizontal, 20)
+                    
+                    Button(action: {
+                        Task {
+                            do {
+                                try await viewModelLogin.login(on: viewModelLogin.baseURL)
+                                print("fez login")
+                                navFeed = true
+                            } catch {
+                                print("Login error: \(error)")
+                            }
                         }
-                    )
+                    }) {
+                        Text("Fazer Login")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding(.horizontal, 20)
+                    .navigationDestination(isPresented: $navFeed) {
+                        FeedView(
+                            viewModelLogin: viewModelLogin,
+                            viewModelPost: viewModelPost,
+                            onLogout: {
+                                viewModelLogin.username = ""
+                                viewModelLogin.password = ""
+                            }
+                        )
+                    }
                 }
+                .padding()
             }
-            .padding()
         }
     }
 }
