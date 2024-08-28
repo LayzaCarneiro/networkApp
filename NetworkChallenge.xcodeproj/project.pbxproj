@@ -32,6 +32,7 @@
 		AE26E1982C7F4AEC005DA1E4 /* NetworkChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */; };
 		AE26E19A2C7F4BEF005DA1E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE26E1992C7F4BEF005DA1E4 /* Assets.xcassets */; };
 		AE26E19C2C7F4C01005DA1E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE26E19B2C7F4C01005DA1E4 /* Assets.xcassets */; };
+		AE26E1A02C7F5300005DA1E4 /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE26E19F2C7F5300005DA1E4 /* LikesView.swift */; };
 		AE9C48EB2C775FF9002170A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C48EA2C775FF9002170A7 /* ContentView.swift */; };
 		AE9C48F02C775FFA002170A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		AE26E1992C7F4BEF005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Downloads/Arquivo/RedeSocial/Assets.xcassets; sourceTree = "<group>"; };
 		AE26E19B2C7F4C01005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../Downloads/Arquivo/RedeSocial/Assets.xcassets; sourceTree = "<group>"; };
 		AE26E19E2C7F4C07005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AE26E19F2C7F5300005DA1E4 /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
 		AE9C48E52C775FF9002170A7 /* NetworkChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9C48EA2C775FF9002170A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				AE0D2A6D2C7CBD53007DF9D1 /* CreatePostView.swift */,
 				AE26E18F2C7F4A28005DA1E4 /* ComunidadesView.swift */,
 				AE26E1912C7F4A43005DA1E4 /* ReportsView.swift */,
+				AE26E19F2C7F5300005DA1E4 /* LikesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				AE0D2A6E2C7CBD53007DF9D1 /* LogoutView.swift in Sources */,
 				AE26E1922C7F4A43005DA1E4 /* ReportsView.swift in Sources */,
 				AE0D2A642C7CBCF7007DF9D1 /* User+Create.swift in Sources */,
+				AE26E1A02C7F5300005DA1E4 /* LikesView.swift in Sources */,
 				AE0D2A682C7CBD12007DF9D1 /* Post.swift in Sources */,
 				AE0D2A712C7CBD53007DF9D1 /* FeedView.swift in Sources */,
 				AE0D2A762C7CBD65007DF9D1 /* LoginViewModel.swift in Sources */,
