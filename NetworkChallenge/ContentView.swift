@@ -1,35 +1,34 @@
-//import SwiftUI
-//
+import SwiftUI
+
 //struct ContentView: View {
 //    @ObservedObject var viewModelUser = UserViewModel()
 //    @ObservedObject var viewModelPost = PostViewModel()
-//
+//    
 //    var body: some View {
 //
-//                VStack {
-//                    if viewModelUser.users.isEmpty {
-//                        Text("Nenhum usuário encontrado.")
-//                            .padding()
-//                    } else {
+//        VStack {
+//            if viewModelUser.users.isEmpty {
+//                Text("Nenhum usuário encontrado.")
+//                    .padding()
+//            } else {
 //
-//                        List(viewModelUser.users, id: \.id) { user in
-//                            Text(user.username)
-//                        }
-//                    }
-//
-//                    if let errorMessage = viewModelUser.errorMessage {
-//                        Text("Erro: \(errorMessage)")
-//                            .foregroundColor(.red)
-//                            .padding()
-//                    }
+//                List(viewModelUser.users, id: \.id) { user in
+//                    Text(user.username)
 //                }
-//                .onAppear {
-//                    Task {
-//                        await viewModelUser.fetchUsers()
-//                    }
-//                }
-//                .padding()
+//            }
 //
+//            if let errorMessage = viewModelUser.errorMessage {
+//                Text("Erro: \(errorMessage)")
+//                    .foregroundColor(.red)
+//                    .padding()
+//            }
+//        }
+//        .onAppear {
+//            Task {
+//                await viewModelUser.fetchUsers()
+//            }
+//        }
+//        .padding()
 //
 //        VStack {
 //            if viewModelPost.posts.isEmpty {
@@ -38,7 +37,7 @@
 //            } else {
 //
 //                List(viewModelPost.posts, id: \.id) { post in
-//                    Text(post.text ?? "")
+//                    Text(post.text)
 //                }
 //            }
 //
@@ -50,21 +49,14 @@
 //        }
 //        .onAppear {
 //            Task {
-//                do {
-//                    try await viewModelPost.fetchPosts()
-//                } catch {
-//                    viewModelPost.errorMessage = "Erro ao carregar posts: \(error.localizedDescription)"
-//                }
+//                await viewModelPost.fetchPosts()
 //            }
+//
 //        }
 //        .padding()
 //    }
 //}
 //
-//#Preview {
-//    ContentView()
-//}
-import SwiftUI
 
 struct ContentView: View {
     
@@ -74,53 +66,52 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                TextField("usuario", text: $viewModel.username)
+                TextField("Usuario", text: $viewModel.username)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                TextField("senha", text: $viewModel.password)
+                TextField("Senha", text: $viewModel.password)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                
-                Button(action: {
+            
+                Button {
                     Task {
-                        try await viewModel.login(on: viewModel.baseURL)
-                        isAuthenticated = true
-                        print("entrou")
-                        try await viewModel.me(on: viewModel.baseURL, with: viewModel.tokenLogin ?? "")
+                        do {
+                            try await viewModel.login(on: viewModel.baseURL)
+                            isAuthenticated = true
+                            try await viewModel.me(on: viewModel.baseURL, with: viewModel.tokenLogin ?? "")
+                        } catch {
+                            print("Erro: \(error.localizedDescription)")
+                        }
                     }
-                }) {
+                } label: {
                     Text("Login")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                 }
                 .padding()
+                .navigationTitle("Página Inicial")
                 
-                Button(action: {
+                Button {
                     Task {
                         try await viewModel.logout(on: viewModel.baseURL, with: viewModel.tokenLogin ?? "")
                         isAuthenticated = false
-                        print("saiu")
                     }
-                }) {
+                } label: {
                     Text("Logout")
                 }
                 .padding()
                 
-                NavigationLink(destination: CreatePostView(viewModel: viewModel, isAuthenticated: $isAuthenticated)) {
-                    Text("link para criar post")
-                }
-                .padding()
-                .disabled(!isAuthenticated)
-                
-                if let user = viewModel.user, isAuthenticated {
-                    Text("usuario logado: \(user.username)")
-                        .font(.title)
-                        .padding()
-                } else if !isAuthenticated {
-                    Text("nenhum usuario logado")
+                if(isAuthenticated) {
+                    LikesView(userToken: viewModel.tokenLogin ?? "")
                 }
             }
+            .padding()
         }
     }
 }
+
 #Preview {
     ContentView()
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum API {
     
@@ -23,7 +24,6 @@ enum API {
         let (data, response) = try await URLSession.shared.data(from: url)
         
         try check(data: data, response: response)
-        // DECODE! Bytes -> [User]
         let users = try JSONDecoder().decode([User].self, from: data)
         return users
     }
@@ -118,4 +118,54 @@ enum API {
         
         print(session.token)
     }
+    
+    static func likePost(on baseURL: URL, postId: UUID, with token: String) async throws {
+        let url = baseURL.appending(path: "likes/\(postId)")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+            
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        try check(data: data, response: response)
+        
+        print("Like")
+    }
+    
+    static func dislikePost(on baseURL: URL, postId: UUID, with token: String) async throws {
+        let url = baseURL.appending(path: "likes/\(postId)")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+            
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        try check(data: data, response: response)
+        
+        print("Dislike")
+    }
+
+    static func postLikingUsers(on baseURL: URL, postId: UUID, with token: String) async throws -> [User] {
+        let url = baseURL.appending(path: "likes/liking_users/\(postId)")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+            
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        try check(data: data, response: response)
+        
+        let users = try JSONDecoder().decode([User].self, from: data)
+        return users
+    }
+    
 }

@@ -17,6 +17,7 @@
 		AE0D2A722C7CBD53007DF9D1 /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A6D2C7CBD53007DF9D1 /* CreatePostView.swift */; };
 		AE0D2A762C7CBD65007DF9D1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A732C7CBD65007DF9D1 /* LoginViewModel.swift */; };
 		AE0D2A782C7CBD65007DF9D1 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A752C7CBD65007DF9D1 /* PostViewModel.swift */; };
+		AE0D2A7E2C7CC5DD007DF9D1 /* UpdateAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A7D2C7CC5DD007DF9D1 /* UpdateAvatarView.swift */; };
 		AE19CA152C77632100154034 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA142C77632100154034 /* User.swift */; };
 		AE19CA182C77634700154034 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA172C77634700154034 /* API.swift */; };
 		AE19CA1A2C77637F00154034 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE19CA192C77637F00154034 /* Session.swift */; };
@@ -27,6 +28,7 @@
 		AE9C48EB2C775FF9002170A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C48EA2C775FF9002170A7 /* ContentView.swift */; };
 		AE9C48ED2C775FFA002170A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE9C48EC2C775FFA002170A7 /* Assets.xcassets */; };
 		AE9C48F02C775FFA002170A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */; };
+		AEE82E222C7DEFDD00726DA2 /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE82E212C7DEFDD00726DA2 /* LikesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,7 @@
 		AE0D2A6D2C7CBD53007DF9D1 /* CreatePostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreatePostView.swift; path = ../../../../Desktop/Arquivo/NetworkApp/View/CreatePostView.swift; sourceTree = "<group>"; };
 		AE0D2A732C7CBD65007DF9D1 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewModel.swift; path = ../../../../Desktop/Arquivo/NetworkApp/ViewModel/LoginViewModel.swift; sourceTree = "<group>"; };
 		AE0D2A752C7CBD65007DF9D1 /* PostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostViewModel.swift; path = ../../../../Desktop/Arquivo/NetworkApp/ViewModel/PostViewModel.swift; sourceTree = "<group>"; };
+		AE0D2A7D2C7CC5DD007DF9D1 /* UpdateAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAvatarView.swift; sourceTree = "<group>"; };
 		AE19CA142C77632100154034 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AE19CA172C77634700154034 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		AE19CA192C77637F00154034 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 		AE9C48EA2C775FF9002170A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AE9C48EC2C775FFA002170A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AEE82E212C7DEFDD00726DA2 /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,8 @@
 				AE0D2A6C2C7CBD53007DF9D1 /* FeedView.swift */,
 				AE0D2A6B2C7CBD52007DF9D1 /* LoginView.swift */,
 				AE0D2A692C7CBD52007DF9D1 /* LogoutView.swift */,
+				AE0D2A7D2C7CC5DD007DF9D1 /* UpdateAvatarView.swift */,
+				AEE82E212C7DEFDD00726DA2 /* LikesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -228,8 +234,10 @@
 				AE0D2A682C7CBD12007DF9D1 /* Post.swift in Sources */,
 				AE19CA1C2C77639800154034 /* Network.swift in Sources */,
 				AE0D2A712C7CBD53007DF9D1 /* FeedView.swift in Sources */,
+				AEE82E222C7DEFDD00726DA2 /* LikesView.swift in Sources */,
 				AE9C48E92C775FF9002170A7 /* NetworkChallengeApp.swift in Sources */,
 				AE0D2A762C7CBD65007DF9D1 /* LoginViewModel.swift in Sources */,
+				AE0D2A7E2C7CC5DD007DF9D1 /* UpdateAvatarView.swift in Sources */,
 				AE19CA202C77657500154034 /* UserViewModel.swift in Sources */,
 				AE0D2A662C7CBD07007DF9D1 /* Post+Create.swift in Sources */,
 				AE19CA222C77688C00154034 /* APIError.swift in Sources */,

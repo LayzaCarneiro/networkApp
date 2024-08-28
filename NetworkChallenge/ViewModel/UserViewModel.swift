@@ -7,10 +7,10 @@
 
 import SwiftUI
 import Combine
+import UIKit
 
 class UserViewModel: ObservableObject {
     @Published var users: [User] = []
-    
     @Published var errorMessage: String?
     
     @Published var name: String = ""
@@ -88,4 +88,37 @@ class UserViewModel: ObservableObject {
         return session.token
     }
 
+//    func updateAvatar(on baseURL: URL) async throws -> String {
+//        Task {
+//            do {
+//                guard let image = UIImage(named: "defaultAvatar") else {
+//                    throw URLError(.fileDoesNotExist)
+//                }
+//                
+//                guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+//                    throw URLError(.badURL)
+//                }
+//                
+//                let base64String = imageData.base64EncodedString()
+//                
+//                let requestBody: [String: String] = [
+//                    "id": user.id.uuidString,
+//                    "username": user.username,
+//                    "name": user.name,
+//                    "avatar": base64String
+//                ]
+//                
+//                let token = try await API.updateAvatar(on: baseURL, requestBody: requestBody)
+//                
+//                DispatchQueue.main.async {
+//                    print("Avatar atualizado com sucesso! Token: \(token)")
+//                }
+//                
+//            } catch {
+//                DispatchQueue.main.async {
+//                    self.errorMessage = "Erro ao atualizar o avatar: \(error.localizedDescription)"
+//                }
+//            }
+//        }
+//    }
 }
