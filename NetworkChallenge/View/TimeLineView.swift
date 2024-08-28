@@ -10,6 +10,7 @@ import SwiftUI
 struct TimeLineView: View {
     @State private var showingSheetPost = false
     @State private var showingSheetCharacter = false
+    @State private var isLiked = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -30,9 +31,17 @@ struct TimeLineView: View {
                                 .clipShape(Rectangle())
                         }
                         .sheet(isPresented: $showingSheetPost) {
-                            SheetViewPost( textinput: "")
-                                .presentationDetents([.medium, .large])
-                                .presentationDragIndicator(.hidden)
+                            NavigationStack {
+                                ZStack{
+                                    Image("background_insects")
+                                        .resizable()
+                                        .scaledToFill()
+                                    SheetViewPost( textinput: "")
+                                }
+                            }
+                            .presentationDetents([.height(250)])
+                            .presentationDragIndicator(.hidden)
+                           
                         }
                         
                         Button {
@@ -54,52 +63,16 @@ struct TimeLineView: View {
                                     .presentationDetents([.medium])
                                     .presentationDragIndicator(.hidden)
                             }
+                            
                                 
                         }
+                        
                     }
                     .padding(.leading, 250)
                     
                     ScrollView{
-                        ZStack {
-                            Image("tree")
-                                .resizable()
-                                .scaledToFit()
-                                .padding(.bottom, -400)
-                            Rectangle()
-                                .frame(width: 250, height: 150)
-                                .padding(.leading, 70)
-                                .foregroundColor(.white)
-                                .opacity(0.6)
-                            Text("teste")
-                        }
-                        .padding(.top, 60)
-                        ZStack {
-                            Image("tree")
-                                .resizable()
-                                .scaledToFit()
-                                .padding(.bottom, -400)
-                            Rectangle()
-                                .frame(width: 250, height: 150)
-                                .padding(.leading, 70)
-                                .foregroundColor(.white)
-                                .opacity(0.6)
-                            Text("teste")
-                        }
-                        .padding(.top, -60)
-                        ZStack {
-                            Image("tree")
-                                .resizable()
-                                .scaledToFit()
-                                .padding(.bottom, -400)
-                            Rectangle()
-                                .frame(width: 250, height: 150)
-                                .padding(.leading, 70)
-                                .foregroundColor(.white)
-                                .opacity(0.6)
-                            Text("teste")
-                        }
-                        .padding(.top, -60)
-                        
+                        PostView()
+                        PostView()
                     }
                 }
         
@@ -107,21 +80,50 @@ struct TimeLineView: View {
         }
     }
     
+    
 }
 
 
 struct SheetViewPost: View {
     @Environment(\.dismiss) var dismiss
     @State public var textinput: String
+    @State private var characterLimit = 20
+    @ObservedObject var textCount = TextCount()
 
     var body: some View {
-        VStack{
-            TextField("Enter your name", text: $textinput, axis: .vertical)
-                .frame(width: 300, height: 100)
-                .textFieldStyle(.roundedBorder)
-                .padding()
-            Button("Press to dismiss") {
-                dismiss()
+        NavigationStack{
+            HStack{
+                Image("insect_3")
+                    .resizable()
+                    //.clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    .frame(width: 30, height:60)
+                    .padding(.leading)
+                TextField("Placeholder", text: $textCount.text, axis: .vertical)
+                    .padding()
+                    .multilineTextAlignment(.leading)
+                    .onChange(of: textCount.text) { _ in
+                        textCount.text = String(textCount.text.prefix(characterLimit))
+                    }
+                    
+            }
+            Text("\(textCount.counted)")
+                .foregroundColor(.gray)
+                .padding(.top)
+
+        }
+        Spacer()
+        .toolbar{
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Post") {
+                    //
+                }
+                //.background(Color.purple)
+                
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    //
+                }
             }
         }
     }
@@ -129,7 +131,6 @@ struct SheetViewPost: View {
 
 struct SheetViewCharacter: View {
     @Environment(\.dismiss) var dismiss
-    //@State public var textinput: String
 
     var body: some View {
         VStack{
@@ -137,7 +138,7 @@ struct SheetViewCharacter: View {
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
             VStack{
                 HStack{
-                    Button(action: {}) {
+                    Button(action: { dismiss() }) {
                         Image("insect_1")
                             .resizable()
                             .frame(width: 80, height:150)
@@ -172,6 +173,48 @@ struct SheetViewCharacter: View {
     }
 }
 
+struct PostView: View {
+    @State private var isLiked = false
+    var body: some View{
+        
+        ZStack {
+            Image("tree")
+                .resizable()
+                .scaledToFit()
+                .padding(.bottom, -400)
+            Rectangle()
+                .frame(width: 250, height: 150)
+                .padding(.leading, 70)
+                .foregroundColor(.white)
+                .opacity(0.6)
+            Image("insect_4")
+                .resizable()
+                .frame(width: 45, height:90)
+                .padding(.leading)
+                .padding(.top, 200)
+                .rotationEffect(.degrees(130.0))
+            Text("teste")
+            Button {
+                self.isLiked.toggle()
+            } label: {
+                Image(systemName: isLiked ? "heart.fill" : "heart")
+                    .foregroundColor(.red)
+                    .fontWeight(.bold)
+                    .padding(.top, 100)
+                    .padding(.leading, 250)
+            }
+        }
+        //.padding(.top, -60)
+    }
+}
+class TextCount: ObservableObject {
+    @Published var counted = "0/150"
+    @Published var text = "" {
+        didSet {
+            counted = String("\(text.count)/150")
+        }
+    }
+}
 
 #Preview {
     TimeLineView()
