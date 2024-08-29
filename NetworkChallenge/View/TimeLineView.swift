@@ -11,6 +11,10 @@ struct TimeLineView: View {
     @State private var showingSheetPost = false
     @State private var showingSheetCharacter = false
     @State private var isLiked = false
+    @StateObject private var viewModel = CharacterViewModel()
+    //@State private var textCount = ""
+    @StateObject var textCount = TextCount()
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -36,12 +40,12 @@ struct TimeLineView: View {
                                     Image("background_insects")
                                         .resizable()
                                         .scaledToFill()
-                                    SheetViewPost( textinput: "")
+                                    SheetViewPost( textCount: textCount)
                                 }
                             }
                             .presentationDetents([.height(250)])
                             .presentationDragIndicator(.hidden)
-                           
+                            
                         }
                         
                         Button {
@@ -59,23 +63,22 @@ struct TimeLineView: View {
                                 Image("background_insects")
                                     .resizable()
                                     .scaledToFill()
-                                SheetViewCharacter( )
+                                SheetViewCharacter( viewModel: viewModel)
                                     .presentationDetents([.medium])
                                     .presentationDragIndicator(.hidden)
                             }
                             
-                                
+                            
                         }
                         
                     }
                     .padding(.leading, 250)
                     
                     ScrollView{
-                        PostView()
-                        PostView()
+                        PostView(viewModel: viewModel, textCount: textCount)
                     }
                 }
-        
+                
             }
         }
     }
@@ -86,16 +89,17 @@ struct TimeLineView: View {
 
 struct SheetViewPost: View {
     @Environment(\.dismiss) var dismiss
-    @State public var textinput: String
+    //@State public var textinput: String
     @State private var characterLimit = 20
-    @ObservedObject var textCount = TextCount()
-
+    //@ObservedObject var textCount = TextCount()
+    @ObservedObject var textCount: TextCount
+    
     var body: some View {
         NavigationStack{
             HStack{
                 Image("insect_3")
                     .resizable()
-                    //.clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                //.clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                     .frame(width: 30, height:60)
                     .padding(.leading)
                 TextField("Placeholder", text: $textCount.text, axis: .vertical)
@@ -104,46 +108,47 @@ struct SheetViewPost: View {
                     .onChange(of: textCount.text) { _ in
                         textCount.text = String(textCount.text.prefix(characterLimit))
                     }
-                    
+                
             }
             Text("\(textCount.counted)")
                 .foregroundColor(.gray)
                 .padding(.top)
-
+            
         }
         Spacer()
-        .toolbar{
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Post") {
-                    //
+            .toolbar{
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Post") {
+                        sendText(textCount.text)
+                    }
+                    //.background(Color.purple)
+                    
                 }
-                //.background(Color.purple)
-                
-            }
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
-                    //
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        //
+                    }
                 }
             }
-        }
     }
 }
 
 struct SheetViewCharacter: View {
     @Environment(\.dismiss) var dismiss
-
+    @ObservedObject var viewModel: CharacterViewModel
+    
     var body: some View {
         VStack{
             Text("Select character")
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
             VStack{
                 HStack{
-                    Button(action: { dismiss() }) {
+                    Button(action: { viewModel.selectedCharacter = "insect_1" }) {
                         Image("insect_1")
                             .resizable()
                             .frame(width: 80, height:150)
                     }
-                    Button(action: {}) {
+                    Button(action: {viewModel.selectedCharacter = "insect_2"}) {
                         Image("insect_2")
                             .resizable()
                             .frame(width: 80, height:150)
@@ -152,16 +157,16 @@ struct SheetViewCharacter: View {
                 }
                 
                 HStack{
-                    Button(action: {}) {
+                    Button(action: {viewModel.selectedCharacter = "insect_3"}) {
                         Image("insect_3")
                             .resizable()
                             .frame(width: 80, height:150)
                     }
-                    Button(action: {}) {
+                    Button(action: {viewModel.selectedCharacter = "insect_4"}) {
                         Image("insect_4")
                             .resizable()
                             .frame(width: 80, height:150)
-                            //.clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                        //.clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                     }
                     .padding(.leading, 50)
                 }
@@ -173,8 +178,15 @@ struct SheetViewCharacter: View {
     }
 }
 
+class CharacterViewModel: ObservableObject {
+    @Published var selectedCharacter: String? = nil
+}
+
 struct PostView: View {
     @State private var isLiked = false
+    @ObservedObject var viewModel: CharacterViewModel
+    @StateObject var textCount = TextCount()
+    
     var body: some View{
         
         ZStack {
@@ -187,13 +199,15 @@ struct PostView: View {
                 .padding(.leading, 70)
                 .foregroundColor(.white)
                 .opacity(0.6)
-            Image("insect_4")
-                .resizable()
-                .frame(width: 45, height:90)
-                .padding(.leading)
-                .padding(.top, 200)
-                .rotationEffect(.degrees(130.0))
-            Text("teste")
+            if let character = viewModel.selectedCharacter {
+                Image(character)
+                    .resizable()
+                    .frame(width: 45, height: 90)
+                    .padding(.leading)
+                    .padding(.top, 200)
+                    .rotationEffect(.degrees(130.0))
+            }
+            TextDisplayView(textCount: textCount)
             Button {
                 self.isLiked.toggle()
             } label: {
@@ -215,6 +229,22 @@ class TextCount: ObservableObject {
         }
     }
 }
+
+struct TextDisplayView: View {
+    @ObservedObject var textCount: TextCount
+
+    var body: some View {
+        Text(textCount.text.isEmpty ? "" : textCount.text)
+            .padding()
+    }
+}
+
+
+func sendText(_ text: String) {
+    print("Texto enviado: \(text)")
+    
+}
+
 
 #Preview {
     TimeLineView()
