@@ -42,13 +42,9 @@ struct ContentView: View {
                 }
                 .padding(.horizontal, 20)
                 .navigationDestination(isPresented: $navFeed) {
-                    FeedView(
+                    HomeView(
                         viewModelLogin: viewModelLogin,
-                        viewModelPost: viewModelPost,
-                        onLogout: {
-                            viewModelLogin.username = ""
-                            viewModelLogin.password = ""
-                        }
+                        viewModelPost: viewModelPost
                     )
                 }
             }
