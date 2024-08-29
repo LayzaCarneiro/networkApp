@@ -77,12 +77,10 @@ struct TestView: View {
                                         )
                                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                             Button(role: .destructive) {
-                                                // Handle delete action
                                             } label: {
                                                 Label("Deletar", systemImage: "trash.fill")
                                             }
                                             Button {
-                                                // Handle report action
                                             } label: {
                                                 Label("Reportar", systemImage: "exclamationmark.triangle")
                                             }
