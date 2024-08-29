@@ -54,7 +54,6 @@
 		AE26E1932C7F4A80005DA1E4 /* EditFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFileView.swift; sourceTree = "<group>"; };
 		AE26E1952C7F4AB0005DA1E4 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChallengeApp.swift; sourceTree = "<group>"; };
-		AE26E1992C7F4BEF005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Downloads/Arquivo/RedeSocial/Assets.xcassets; sourceTree = "<group>"; };
 		AE26E1A12C7F6371005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE9C48E52C775FF9002170A7 /* NetworkChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9C48EA2C775FF9002170A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -107,7 +106,6 @@
 		AE19CA1D2C77654000154034 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AE19CA232C776D6B00154034 /* MapView.swift */,
 				FE7B72662C7E02A30025C82D /* HomeView.swift */,
 				AE26E18D2C7F4A1A005DA1E4 /* TestView.swift */,
 				FFB2FB972C7F66120082D93C /* CreatePostView.swift */,
@@ -159,7 +157,6 @@
 				AE19CA132C77631100154034 /* Model */,
 				AE9C48EA2C775FF9002170A7 /* ContentView.swift */,
 				FEE53D3D2C7E086A005A0A15 /* Colors.xcassets */,
-				AE9C48EC2C775FFA002170A7 /* Assets.xcassets */,
 				AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */,
 				AE9C48EE2C775FFA002170A7 /* Preview Content */,
 			);
@@ -169,7 +166,6 @@
 		AE9C48EE2C775FFA002170A7 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				AE26E1992C7F4BEF005DA1E4 /* Assets.xcassets */,
 				AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -251,9 +247,7 @@
 				AE19CA1A2C77637F00154034 /* Session.swift in Sources */,
 				AE26E18A2C7F49B8005DA1E4 /* Report.swift in Sources */,
 				AE9C48EB2C775FF9002170A7 /* ContentView.swift in Sources */,
-				AE19CA1C2C77639800154034 /* Network.swift in Sources */,
 				FE7B72672C7E02A30025C82D /* HomeView.swift in Sources */,
-				AE9C48E92C775FF9002170A7 /* NetworkChallengeApp.swift in Sources */,
 				AE26E1982C7F4AEC005DA1E4 /* NetworkChallengeApp.swift in Sources */,
 				AE26E1922C7F4A43005DA1E4 /* ReportsView.swift in Sources */,
 				FFB2FB9E2C7F66120082D93C /* LogoutView.swift in Sources */,
