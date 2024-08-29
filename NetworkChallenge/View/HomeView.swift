@@ -56,7 +56,7 @@ struct HomeView: View {
                     Button(action: {
                         print("Botão direito pressionado")
                     }) {
-                        Image("ConfigButton")
+                        Image("ExitButton")
                             .resizable()
                             .frame(width: 100, height: 80)
                             .padding()
