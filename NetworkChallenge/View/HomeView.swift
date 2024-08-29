@@ -17,7 +17,7 @@ struct HomeView: View {
             VStack {
             ScrollView(.horizontal) {
                 HStack(spacing: 0) {
-                    ForEach(0..<5) { _ in
+                    ForEach(0..<2) { _ in
                         VStack {
                             Image("Frame")
                                 .resizable()
@@ -36,16 +36,6 @@ struct HomeView: View {
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.paging)
-
-            Button(action: {
-                print("Botão pressionado")
-            }) {
-                Image("ButtonCreate")
-                    .resizable()
-                    .frame(width: 300, height: 150)
-                    .padding()
-            }
-            .padding(.top, -20)
         }
             
             
@@ -82,4 +72,3 @@ struct HomeView: View {
 #Preview {
     HomeView()
 }
-
