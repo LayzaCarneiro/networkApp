@@ -133,7 +133,11 @@ class PostViewModel: ObservableObject {
         try check(data: data, response: response)
         
         let users = try JSONDecoder().decode([User].self, from: data)
+        
+        for user in users {
+            print("\(user.name)\n")
+        }
+        
         return users
     }
-
 }

@@ -8,26 +8,27 @@
 import SwiftUI
 
 struct Textfield: View {
-    @State var text: String = ""
+    @State var placeholder: String = ""
     @State var field: String = ""
     
     var body: some View {
-        GeometryReader { geometry in
-            
             ZStack {
-                Image("textfield")
-                    .resizable()
-                    .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-                    .scaledToFit()
-                    .padding()
-                
-                TextField("\(text)", text: $field)
-                    .padding()
-                    .padding(.leading, geometry.size.width * 0.03)
-                    .padding(.trailing, geometry.size.width * 0.08)
+
+                VStack {
+                    Spacer()
+                    Image("textfield")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250)
+
+                    Spacer()
+                }
+
+                TextField("\(placeholder)", text: $field)
+        
             }
             
-        }
+        
     }
 }
 

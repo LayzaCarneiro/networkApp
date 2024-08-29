@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LikesView: View {
     @StateObject var viewModelPost = PostViewModel()
-    @State var isLiked = false
     @State var userToken: String = ""
+    @State var user: User?
 
     var body: some View {
         VStack {
@@ -19,36 +19,7 @@ struct LikesView: View {
                     .padding()
             } else {
                 List(viewModelPost.posts) { post in
-                    VStack(alignment: .leading) {
-                        Text(post.text)
-                            .font(.headline)
-                            
-//                        if let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken) {
-//
-//                        }
-                        
-                        
-                        HStack {
-                            Text("Likes: \(post.like_count ?? 0)")
-                                .font(.subheadline)
-                            
-                            Button {
-                                Task {
-                                    
-                                    if(!isLiked) {
-                                        try await viewModelPost.likePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
-                                    } else {
-                                        try await viewModelPost.dislikePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
-                                    }
-                                }
-                                isLiked.toggle()
-                            } label: {
-                                Text(isLiked ? "Descurtir" : "Curtir")
-                                    .foregroundColor(.blue)
-                            }
-                        }
-                    }
-                    .padding()
+                    PostRowView(post: post, userToken: userToken, user: user)
                 }
             }
 
@@ -61,9 +32,59 @@ struct LikesView: View {
         .onAppear {
             Task {
                 await viewModelPost.fetchPosts()
-                
-//            let jpgData = UIImage(named: "Image")!.jpegData(compressionQuality: 0.5)
-//            let pngData = UIImage(named: "Image")!.pngData()
+            }
+        }
+    }
+}
+
+struct PostRowView: View {
+    @StateObject var viewModelPost = PostViewModel()
+    var post: Post
+    var userToken: String
+    var user: User?
+    
+    @State private var likingUsers: [User] = []
+    @State private var isLiked = false
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(post.text)
+                .font(.headline)
+            
+            HStack {
+                Text("Likes: \(post.like_count ?? 0)")
+                    .font(.subheadline)
+
+                Button {
+                    Task {
+                        let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                        likingUsers = users
+
+                        if let user = user, likingUsers.contains(where: { $0.id == user.id }) {
+                            isLiked = false
+                            try await viewModelPost.dislikePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                        } else {
+                            isLiked = true
+                            try await viewModelPost.likePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                        }
+
+                        // Atualiza a contagem de likes após a operação
+                        await viewModelPost.fetchPosts()
+                    }
+                } label: {
+                    Text(isLiked ? "Descurtir" : "Curtir")
+                        .foregroundColor(.blue)
+                }
+            }
+        }
+        .padding()
+        .onAppear {
+            Task {
+                if let user = user {
+                    let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                    likingUsers = users
+                    isLiked = likingUsers.contains(where: { $0.id == user.id })
+                }
             }
         }
     }
