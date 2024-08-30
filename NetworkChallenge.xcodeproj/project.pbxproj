@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE0958E02C81E91800A22A43 /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0958DF2C81E91800A22A43 /* LikesView.swift */; };
 		AE0D2A642C7CBCF7007DF9D1 /* User+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A632C7CBCF7007DF9D1 /* User+Create.swift */; };
 		AE0D2A662C7CBD07007DF9D1 /* Post+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A652C7CBD07007DF9D1 /* Post+Create.swift */; };
 		AE0D2A682C7CBD12007DF9D1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0D2A672C7CBD12007DF9D1 /* Post.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE0958DF2C81E91800A22A43 /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
 		AE0D2A632C7CBCF7007DF9D1 /* User+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Create.swift"; sourceTree = "<group>"; };
 		AE0D2A652C7CBD07007DF9D1 /* Post+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Post+Create.swift"; sourceTree = "<group>"; };
 		AE0D2A672C7CBD12007DF9D1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				FFB2FB992C7F66120082D93C /* LogoutView.swift */,
 				AE26E18F2C7F4A28005DA1E4 /* ComunidadesView.swift */,
 				AE26E1912C7F4A43005DA1E4 /* ReportsView.swift */,
+				AE0958DF2C81E91800A22A43 /* LikesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				AE0D2A642C7CBCF7007DF9D1 /* User+Create.swift in Sources */,
 				FFB2FBA82C7F97490082D93C /* NewUserView.swift in Sources */,
 				FFB2FB9D2C7F66120082D93C /* FeedView.swift in Sources */,
+				AE0958E02C81E91800A22A43 /* LikesView.swift in Sources */,
 				FFB2FBA32C7F663B0082D93C /* LoginViewModel.swift in Sources */,
 				AE0D2A682C7CBD12007DF9D1 /* Post.swift in Sources */,
 				FFB2FB9C2C7F66120082D93C /* CreatePostView.swift in Sources */,
