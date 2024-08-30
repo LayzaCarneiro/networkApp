@@ -12,11 +12,13 @@ struct CreatePostView: View {
     @State var selectedImage: UIImage? = nil
     
     let comunidades: [String] = [
-            "FORMIGAS",
-            "ROBOS",
-            "PADRINHOSMAGICOS"
-        ]
+            "Somos humanos. Não robôs.",
+            "Vida de inseto"
+    ]
 
+    @State var comunidadeSel: String = ""
+
+    
     var body: some View {
         VStack(spacing: 20) {
             TextField("Escreva seu post", text: $postText)
@@ -27,22 +29,23 @@ struct CreatePostView: View {
 //                .padding()
 //                .background(RoundedRectangle(cornerRadius: 10).strokeBorder(Color.gray, lineWidth: 1))
             
-            Picker("comunidades", selection: $comunidade) {
-                ForEach(comunidades, id: \.self) { comunidade in
-                    Text(comunidade)
-                }
-            }
-            .pickerStyle(MenuPickerStyle())
-            .padding()
-            .background(RoundedRectangle(cornerRadius: 10).strokeBorder(Color.gray, lineWidth: 1))
-                        .onChange(of: comunidade) { newValue in
-                            print("comunidade q escolheu: \(newValue)")
-                        }
-            
+//            Picker("comunidades", selection: $comunidade) {
+//                ForEach(comunidades, id: \.self) { comunidade in
+//                    Text(comunidade)
+//                }
+//            }
+//            .pickerStyle(MenuPickerStyle())
+//            .padding()
+//            .background(RoundedRectangle(cornerRadius: 10).strokeBorder(Color.gray, lineWidth: 1))
+//                        .onChange(of: comunidade) { newValue in
+//                            print("comunidade q escolheu: \(newValue)")
+//                        }
+//            
             Button(action: {
                 Task {
                     do {
-                        let postComunidade = "\(comunidade)!@#$%ˆ&*\(postText)"
+                        print("comunidade selecionada \(comunidadeSel)")
+                        let postComunidade = "\(comunidadeSel)!@#$%ˆ&*\(postText)"
                         let post = try await viewModelPost.createPost(
                             on: viewModelLogin.baseURL,
                             text: postComunidade,
@@ -61,8 +64,6 @@ struct CreatePostView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
             }
-            .disabled(comunidade.isEmpty)
-
         }
         .padding()
         .navigationTitle("criar post")
