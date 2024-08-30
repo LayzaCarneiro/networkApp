@@ -1,8 +1,8 @@
 //
-//  NetworkChallengeApp.swift
-//  NetworkChallenge
+//  RedeSocialApp.swift
+//  RedeSocial
 //
-//  Created by Layza Maria Rodrigues Carneiro on 22/08/24.
+//  Created by Leticia França on 26/08/24.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct NetworkChallengeApp: App {
     var body: some Scene {
         WindowGroup {
-            TimeLineView()
+            LoginView()
         }
     }
 }

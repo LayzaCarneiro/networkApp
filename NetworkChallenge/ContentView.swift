@@ -1,41 +1,82 @@
-//
-//  ContentView.swift
-//  NetworkChallenge
-//
-//  Created by Layza Maria Rodrigues Carneiro on 22/08/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = UserViewModel()
-    @State var name: String = ""
+    
+    @ObservedObject private var viewModelLogin = LoginViewModel()
+    @ObservedObject private var viewModelPost = PostViewModel()
+
+    @State private var navFeed = false
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                VStack(spacing: 20) {
+                    
+                    VStack(spacing: 15) {
+                        CustomTextField(placeholder: "Usuário", text: $viewModelLogin.username)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                        CustomTextField(placeholder: "Senha", text: $viewModelLogin.password, isSecure: true)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                    }
+                    .padding(.horizontal, 20)
+                    
+                    Button(action: {
+                        Task {
+                            do {
+                                try await viewModelLogin.login(on: viewModelLogin.baseURL)
+                                print("fez login")
+                                navFeed = true
+                            } catch {
+                                print("Login error: \(error)")
+                            }
+                        }
+                    }) {
+                        Text("Fazer Login")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding(.horizontal, 20)
+                    .navigationDestination(isPresented: $navFeed) {
+//                        FeedView(
+//                            viewModelLogin: viewModelLogin,
+//                            viewModelPost: viewModelPost,
+//                            onLogout: {
+//                                viewModelLogin.username = ""
+//                                viewModelLogin.password = ""
+//                            }
+//                        )
+                        LikesView(userToken: viewModelLogin.tokenLogin ?? "", user: viewModelLogin.user)
+                    }
+                }
+                .padding()
+            }
+        }
+    }
+}
+
+struct CustomTextField: View {
+    let placeholder: String
+    @Binding var text: String
+    var isSecure: Bool = false
     
     var body: some View {
-        VStack {
-            
-            if viewModel.users.isEmpty {
-                Text("Nenhum usuário encontrado.")
-                    .padding()
-            } else {
-                List(viewModel.users, id: \.id) { user in
-                    Text(user.name)
-                }
-            }
-            
-            if let errorMessage = viewModel.errorMessage {
-                Text("Erro: \(errorMessage)")
-                    .foregroundColor(.red)
-                    .padding()
-            }
-            
+        if isSecure {
+            SecureField(placeholder, text: $text)
+                .padding()
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(10)
+        } else {
+            TextField(placeholder, text: $text)
+                .padding()
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(10)
         }
-        .onAppear {
-            Task {
-                await viewModel.fetchUsers()
-            }
-        }
-        .padding()
     }
 }
 
