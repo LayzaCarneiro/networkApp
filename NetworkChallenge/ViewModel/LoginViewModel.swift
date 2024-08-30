@@ -9,7 +9,6 @@ import SwiftUI
 
 class LoginViewModel: ObservableObject {
     
-    
     @Published var errorMessage: String?
     @Published var user: User?
     

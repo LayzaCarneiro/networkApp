@@ -25,10 +25,12 @@
 		AE26E1962C7F4AB0005DA1E4 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE26E1952C7F4AB0005DA1E4 /* ReportViewModel.swift */; };
 		AE26E1982C7F4AEC005DA1E4 /* NetworkChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */; };
 		AE26E1A22C7F6371005DA1E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE26E1A12C7F6371005DA1E4 /* Assets.xcassets */; };
+		AE7B9CCF2C809409000F6F57 /* LoginTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B9CCE2C809409000F6F57 /* LoginTicket.swift */; };
 		AE9C48EB2C775FF9002170A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C48EA2C775FF9002170A7 /* ContentView.swift */; };
 		AE9C48F02C775FFA002170A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */; };
 		FE7B72672C7E02A30025C82D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7B72662C7E02A30025C82D /* HomeView.swift */; };
 		FEE53D3E2C7E086A005A0A15 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEE53D3D2C7E086A005A0A15 /* Colors.xcassets */; };
+		D52DED6D2C7DF0A700BF9315 /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52DED6C2C7DF0A700BF9315 /* TimeLineView.swift */; };
 		FFB2FB9C2C7F66120082D93C /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FB972C7F66120082D93C /* CreatePostView.swift */; };
 		FFB2FB9D2C7F66120082D93C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FB982C7F66120082D93C /* FeedView.swift */; };
 		FFB2FB9E2C7F66120082D93C /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FB992C7F66120082D93C /* LogoutView.swift */; };
@@ -59,11 +61,13 @@
 		AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChallengeApp.swift; sourceTree = "<group>"; };
 		AE26E1992C7F4BEF005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Downloads/Arquivo/RedeSocial/Assets.xcassets; sourceTree = "<group>"; };
 		AE26E1A12C7F6371005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AE7B9CCE2C809409000F6F57 /* LoginTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTicket.swift; sourceTree = "<group>"; };
 		AE9C48E52C775FF9002170A7 /* NetworkChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9C48EA2C775FF9002170A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FE7B72662C7E02A30025C82D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		FEE53D3D2C7E086A005A0A15 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		D52DED6C2C7DF0A700BF9315 /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
 		FFB2FB972C7F66120082D93C /* CreatePostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
 		FFB2FB982C7F66120082D93C /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		FFB2FB992C7F66120082D93C /* LogoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutView.swift; sourceTree = "<group>"; };
@@ -112,6 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				FE7B72662C7E02A30025C82D /* HomeView.swift */,
+				AE19CA232C776D6B00154034 /* MapView.swift */,
+				D52DED6C2C7DF0A700BF9315 /* TimeLineView.swift */,
+				AE26E1AD2C7F6D3B005DA1E4 /* Components */,
 				AE26E18D2C7F4A1A005DA1E4 /* TestView.swift */,
 				FFB2FB972C7F66120082D93C /* CreatePostView.swift */,
 				FFB2FBA72C7F97490082D93C /* NewUserView.swift */,
@@ -136,6 +143,14 @@
 				FFB2FBAB2C81D77A0082D93C /* 111.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AE26E1AD2C7F6D3B005DA1E4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AE7B9CCE2C809409000F6F57 /* LoginTicket.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		AE9C48DC2C775FF9002170A7 = {
@@ -279,6 +294,8 @@
 				AE26E1942C7F4A80005DA1E4 /* EditFileView.swift in Sources */,
 				AE26E18C2C7F49DD005DA1E4 /* Report+Create.swift in Sources */,
 				AE19CA152C77632100154034 /* User.swift in Sources */,
+				D52DED6D2C7DF0A700BF9315 /* TimeLineView.swift in Sources */,
+				AE7B9CCF2C809409000F6F57 /* LoginTicket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NetworkChallenge/Preview Content\"";
-				DEVELOPMENT_TEAM = ZFH4AF7HSL;
+				DEVELOPMENT_TEAM = 9CWTXA2Q3Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -441,7 +458,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NetworkChallenge/Preview Content\"";
-				DEVELOPMENT_TEAM = ZFH4AF7HSL;
+				DEVELOPMENT_TEAM = 9CWTXA2Q3Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
