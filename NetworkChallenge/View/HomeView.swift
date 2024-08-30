@@ -34,16 +34,7 @@ struct HomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 0) {
                             ForEach(comunidades.keys.sorted(), id: \.self) { key in
-                                NavigationLink(destination: FeedView(
-                                    viewModelLogin: viewModelLogin,
-                                    viewModelPost: viewModelPost,
-                                    onLogout: {
-                                        viewModelLogin.username = ""
-                                        viewModelLogin.password = ""
-                                        navFeed = true
-                                    },
-                                    comunidadeSel: key
-                                )) {
+                                NavigationLink(destination: TimeLineView()) {
                                     VStack {
                                         Image("Frame")
                                             .resizable()

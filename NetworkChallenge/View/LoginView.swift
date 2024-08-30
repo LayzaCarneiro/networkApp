@@ -23,7 +23,7 @@ struct LoginView: View {
                 
                 Color.backgroundOffWhite.ignoresSafeArea()
                 
-                VStack(spacing: 50) {
+                VStack {
                     
                     ZStack {
                         Image("loginTicket")
@@ -96,12 +96,23 @@ struct LoginView: View {
                                 .frame(width: 140)
                             
                             Text("Entrar")
-                                .font(.title)
+                                .font(.title2)
+                                .foregroundStyle(.backgroundOffWhite)
+                                .fontWeight(.semibold)
                         }
                     }
+                    .padding(.top, 35)
+                    
+                    NavigationLink("Cadastro", destination: CreateUserView())
+                        .font(.body)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.brownPixel)
+                        .padding(.top, 15)
+                    
                 }
                 .navigationDestination(isPresented: $navFeed) {
-                    LikesView(userToken: viewModelLogin.tokenLogin ?? "", user: viewModelLogin.user)
+                    HomeView(viewModelLogin: viewModelLogin)
+//
                 }
             }
             .onAppear {

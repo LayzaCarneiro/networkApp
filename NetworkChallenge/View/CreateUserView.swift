@@ -131,14 +131,15 @@ struct CreateUserView: View {
                     .frame(width: 200, height: 100)
             )
             .navigationDestination(isPresented: $navFeed) {
-                FeedView(
-                    viewModelLogin: viewModelLogin,
-                    viewModelPost: viewModelPost,
-                    onLogout: {
-                        navFeed = true
-
-                    }
-                )
+                HomeView(viewModelLogin: viewModelLogin, viewModelPost: viewModelPost)
+//                FeedView(
+//                    viewModelLogin: viewModelLogin,
+//                    viewModelPost: viewModelPost,
+//                    onLogout: {
+//                        navFeed = true
+//
+//                    }
+//                )
             }
 
             Spacer()
