@@ -56,6 +56,7 @@ struct PostRowView: View {
                     .font(.subheadline)
 
                 Button {
+                    
                     Task {
                         let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
                         likingUsers = users
@@ -68,7 +69,6 @@ struct PostRowView: View {
                             try await viewModelPost.likePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
                         }
 
-                        // Atualiza a contagem de likes após a operação
                         await viewModelPost.fetchPosts()
                     }
                 } label: {

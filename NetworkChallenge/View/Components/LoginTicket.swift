@@ -1,36 +1,43 @@
-////
-////  loginTicket.swift
-////  NetworkChallenge
-////
-////  Created by Layza Maria Rodrigues Carneiro on 29/08/24.
-////
 //
-//import SwiftUI
+//  loginTicket.swift
+//  NetworkChallenge
 //
-//struct LoginTicket: View {
-//    @State var name: String = ""
+//  Created by Layza Maria Rodrigues Carneiro on 29/08/24.
 //
-//    var body: some View {
-//        ZStack {
-//            
-//            Image("loginTicket")
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 320)
-//                .padding(.bottom, 80)
-//            
-//            VStack {
-//                Textfield(placeholder: "Usuário", field: name)
-//                    .padding(.top, 250)
-//                
-//                Textfield(placeholder: "Senha", field: name)
-//            }
-//            .padding(.leading, 3)
-//        }
-//    }
-//}
-//
+
+import SwiftUI
+
+struct LoginTicket: View {
+    @State var placeholder: String = ""
+    @State var textfield: String = "textfield"
+
+    @Binding var field: String
+    var isSecure: Bool = false
+
+    var body: some View {
+        ZStack {
+            Image("\(textfield)")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 190)
+                .clipped()
+            
+            if isSecure {
+                SecureField("\(placeholder)", text: $field)
+                    .padding(.leading, 65)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+            } else {
+                TextField("\(placeholder)", text: $field)
+                    .padding(.leading, 65)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+            }
+        }
+    }
+}
+
 //#Preview {
 //    LoginTicket()
 //}
-//
+
