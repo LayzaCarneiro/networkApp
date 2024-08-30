@@ -14,6 +14,28 @@ struct TimeLineView: View {
     @StateObject private var viewModel = CharacterViewModel()
     @StateObject var textCount = TextCount()
     
+    @StateObject var viewModelPost = PostViewModel()
+    @ObservedObject var viewModelReport = ReportViewModel()
+
+    @State var comunidadeSel: String = "FORMIGAS"
+    var comunidades: [String] = ["FORMIGAS", "ROBOS", "PADRINHOSMAGICOS"]
+    
+    var filteredPosts: [Post] {
+        if comunidadeSel.isEmpty {
+            return viewModelPost.posts
+        } else {
+            return viewModelPost.posts.filter { post in
+                let postComunidade = comunidade(from: post.text)
+                return postComunidade == comunidadeSel
+            }
+        }
+    }
+    
+    func comunidade(from text: String) -> String {
+        let components = text.components(separatedBy: "!@#$%ˆ&*")
+        return components.first ?? ""
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -21,6 +43,7 @@ struct TimeLineView: View {
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
+                
                 VStack {
                     HStack {
                         Button {
@@ -71,11 +94,23 @@ struct TimeLineView: View {
                     .frame(width: 200, height: 150)
                     .padding(.leading, 150)
                     //.padding(.bottom, 0)
-                    ScrollView{
-                        PostView(viewModel: viewModel, textCount: textCount)
+                    ScrollView {
+//                        PostView(viewModel: viewModel, textCount: textCount)
+                        ForEach(viewModelPost.posts) { post in
+                            PostView(viewModel: viewModel, textCount: textCount)
+                        }
                     }
                 }
-                
+                .onAppear {
+                    Task {
+                        do {
+                            try await viewModelPost.fetchPosts()
+//                            try await viewModelUser.fetchUsers()
+                        } catch {
+                            viewModelPost.errorMessage = "erro carregar posts: \(error.localizedDescription)"
+                        }
+                    }
+                }
             }
         }
     }
@@ -189,6 +224,7 @@ struct PostView: View {
                 .padding(.leading, 70)
                 .foregroundColor(.white)
                 .opacity(0.6)
+            
             if let character = viewModel.selectedCharacter {
                 Image(character)
                     .resizable()
@@ -197,7 +233,9 @@ struct PostView: View {
                     .padding(.top, 200)
                     .rotationEffect(.degrees(130.0))
             }
+                        
             TextDisplayView(textCount: textCount)
+            
             Button {
                 self.isLiked.toggle()
             } label: {
@@ -211,6 +249,7 @@ struct PostView: View {
         .padding(.top, -60)
     }
 }
+
 class TextCount: ObservableObject {
     @Published var counted = "0/150"
     @Published var text = "" {

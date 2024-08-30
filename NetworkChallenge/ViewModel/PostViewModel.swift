@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class PostViewModel: ObservableObject {
+class PostViewModel: ObservableObject, Identifiable {
     @Published var posts: [Post] = []
     @Published var errorMessage: String?
     
