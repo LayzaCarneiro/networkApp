@@ -20,6 +20,15 @@ struct HomeView: View {
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
+                VStack {
+                }
+                .background(Image("")
+                    .resizable()
+                    .frame(width: 100, height: 100))
+                .padding(.top, -350)
+                .onTapGesture {
+                    isAceso.toggle()
+                }
                 
                 VStack {
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -97,6 +106,7 @@ struct HomeView: View {
             
         }
         .navigationBarBackButtonHidden(true)
+
     }
 }
 
