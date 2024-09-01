@@ -24,14 +24,14 @@ struct LoginTicket: View {
             
             if isSecure {
                 SecureField("\(placeholder)", text: $field)
-                    .padding(.leading, 65)
+                    .padding(.leading, 70)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .font(.title3)
                 
             } else {
                 TextField("\(placeholder)", text: $field)
-                    .padding(.leading, 65)
+                    .padding(.leading, 70)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .font(.title3)

@@ -103,7 +103,7 @@ struct LoginView: View {
                     
                     NavigationLink(destination: CreateUserView()) {
                         Text("Cadastro")
-                            .font(.body, weight: .regular)
+                            .font(.title3, weight: .regular)
                             .underline(true, color: .brownPixel)
                             .foregroundStyle(.brownPixel)
                             .padding(.top, 15)
@@ -120,6 +120,7 @@ struct LoginView: View {
                 }
             }
         }
+        .accentColor(.brownPixel)
     }
 }
 
