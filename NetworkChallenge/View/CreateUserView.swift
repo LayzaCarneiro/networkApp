@@ -20,6 +20,7 @@ struct CreateUserView: View {
             Spacer()
             Spacer()
             Spacer()
+            
             ZStack {
                 VStack {
                     Image("fundoCadastro")
@@ -29,10 +30,9 @@ struct CreateUserView: View {
                 .padding(.horizontal, 25)
 
                 VStack {
-                    //                    TextField("", text: $text, prompt: Text("Placeholder"))
 
                     TextField("Nome", text: $viewModelUser.name)
-                        .font(.system(.body, design: .monospaced))
+                        .font(.title3)
                         .padding()
                         .background(
                             Image("fundoTextField")
@@ -44,7 +44,7 @@ struct CreateUserView: View {
 
                     Spacer()
                     TextField("Usuário", text: $viewModelUser.username)
-                        .font(.system(.body, design: .monospaced))
+                        .font(.title3)
                         .padding()
                         .background(
                             Image("fundoTextField")
@@ -57,7 +57,7 @@ struct CreateUserView: View {
                     Spacer()
 
                     SecureField("Senha", text: $viewModelUser.password)
-                        .font(.system(.body, design: .monospaced))
+                        .font(.title3)
                         .padding()
                         .background(
                             Image("fundoTextField")
@@ -75,17 +75,17 @@ struct CreateUserView: View {
 
             if showErrorMessages && !isUsernameValid {
                 Text("O usuário deve possuir 5 ou mais caracteres.")
-                    .font(.caption)
+                    .font(.caption1)
                     .foregroundColor(.red)
             } else if showErrorMessages && !isUsernameAvailable {
                 Text("O nome de usuário já existe.")
-                    .font(.caption)
+                    .font(.caption1)
                     .foregroundColor(.red)
             }
 
             if showErrorMessages && !isPasswordValid {
                 Text("Sua senha deve possuir 5 ou mais caracteres.")
-                    .font(.caption)
+                    .font(.caption1)
                     .foregroundColor(.red)
             }
 
@@ -116,7 +116,7 @@ struct CreateUserView: View {
                 showErrorMessages = true
             }) {
                 Text("Criar conta")
-                    .font(.system(.body, design: .monospaced))
+                    .font(.title2)
                     .foregroundColor(.fundoAmarelo)
                     .padding()
                     .frame(maxWidth: .infinity)

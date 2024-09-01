@@ -24,7 +24,7 @@ struct LoginView: View {
                 Color.backgroundOffWhite.ignoresSafeArea()
                 
                 VStack {
-                    
+                                        
                     ZStack {
                         Image("loginTicket")
                             .resizable()
@@ -39,7 +39,7 @@ struct LoginView: View {
                                 
                                 if showErrorMessages && !isUsernameValid {
                                     Text("O usuário está incorreto")
-                                        .font(.caption)
+                                        .font(.caption1)
                                         .foregroundColor(.red)
                                 }
                                 
@@ -53,7 +53,7 @@ struct LoginView: View {
                                 
                                 if showErrorMessages && !isPasswordValid {
                                     Text("A senha está incorreta")
-                                        .font(.caption)
+                                        .font(.caption1)
                                         .foregroundColor(.red)
                                         
                                 }
@@ -73,7 +73,6 @@ struct LoginView: View {
                         Task {
                             do {
                                 try await viewModelLogin.login(on: viewModelLogin.baseURL)
-                                print("fez login")
                                 navFeed = true
                                 
                                 isUsernameValid = true
@@ -81,7 +80,6 @@ struct LoginView: View {
                                 showErrorMessages = false
                                 
                             } catch {
-                                print("Login error: \(error)")
                                 isUsernameValid = false
                                 isPasswordValid = false
                                 showErrorMessages = true
@@ -103,12 +101,13 @@ struct LoginView: View {
                     }
                     .padding(.top, 35)
                     
-                    NavigationLink("Cadastro", destination: CreateUserView())
-                        .font(.body)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.brownPixel)
-                        .padding(.top, 15)
-                    
+                    NavigationLink(destination: CreateUserView()) {
+                        Text("Cadastro")
+                            .font(.body, weight: .regular)
+                            .underline(true, color: .brownPixel)
+                            .foregroundStyle(.brownPixel)
+                            .padding(.top, 15)
+                    }
                 }
                 .navigationDestination(isPresented: $navFeed) {
                     HomeView(viewModelLogin: viewModelLogin)

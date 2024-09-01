@@ -27,11 +27,14 @@ struct LoginTicket: View {
                     .padding(.leading, 65)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .font(.title3)
+                
             } else {
                 TextField("\(placeholder)", text: $field)
                     .padding(.leading, 65)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .font(.title3)
             }
         }
     }

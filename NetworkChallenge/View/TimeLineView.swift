@@ -97,7 +97,8 @@ struct TimeLineView: View {
                     ScrollView {
 //                        PostView(viewModel: viewModel, textCount: textCount)
                         ForEach(viewModelPost.posts) { post in
-                            PostView(viewModel: viewModel, textCount: textCount)
+                            PostView(viewModel: viewModel, textCount: textCount, text: post.text)
+//                            Text(post.text)
                         }
                     }
                 }
@@ -211,6 +212,7 @@ struct PostView: View {
     @State private var isLiked = false
     @ObservedObject var viewModel: CharacterViewModel
     @ObservedObject var textCount: TextCount
+    @State var text: String = ""
     
     var body: some View{
         
@@ -234,7 +236,11 @@ struct PostView: View {
                     .rotationEffect(.degrees(130.0))
             }
                         
-            TextDisplayView(textCount: textCount)
+//            TextDisplayView(textCount: textCount)
+            Text(text)
+                .padding(.leading, 120)
+                .padding(.trailing, 70)
+
             
             Button {
                 self.isLiked.toggle()
