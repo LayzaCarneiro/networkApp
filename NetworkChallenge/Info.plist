@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>pt-BR</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PixelifySans-Medium.ttf</string>
+		<string>PixelifySans-Bold.ttf</string>
+		<string>PixelifySans-SemiBold.ttf</string>
+		<string>PixelifySans-VariableFont_wght.ttf</string>
+		<string>SF-Pro-Rounded-Semibold.ttf</string>
+	</array>
+</dict>
+</plist>

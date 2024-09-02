@@ -10,12 +10,11 @@ import Combine
 
 class UserViewModel: ObservableObject {
     @Published var users: [User] = []
-    
     @Published var errorMessage: String?
-    
     @Published var name: String = ""
     @Published var username: String = ""
     @Published var password: String = ""
+    @Published var user: User?
 
     let baseURL = URL(string: "http://127.0.0.1:8080")!
 
@@ -44,6 +43,23 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    func patchAvatar(with token: String, with avatar: Data, on baseURL: URL) async throws {
+        let url = baseURL.appendingPathComponent("users/avatar")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = avatar
+        request.allHTTPHeaderFields = [
+            "Content-Type": "image/png"
+        ]
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        try check(data: data, response: response)
+//        self.user?.avatar = avatarBase64
+    }
+
+
     func createUser(on baseURL: URL) async throws -> String {
         let url = baseURL.appending(path: "users")
         

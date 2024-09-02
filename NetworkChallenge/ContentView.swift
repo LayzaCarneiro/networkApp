@@ -1,126 +1,78 @@
-//import SwiftUI
-//
-//struct ContentView: View {
-//    @ObservedObject var viewModelUser = UserViewModel()
-//    @ObservedObject var viewModelPost = PostViewModel()
-//
-//    var body: some View {
-//
-//                VStack {
-//                    if viewModelUser.users.isEmpty {
-//                        Text("Nenhum usuário encontrado.")
-//                            .padding()
-//                    } else {
-//
-//                        List(viewModelUser.users, id: \.id) { user in
-//                            Text(user.username)
-//                        }
-//                    }
-//
-//                    if let errorMessage = viewModelUser.errorMessage {
-//                        Text("Erro: \(errorMessage)")
-//                            .foregroundColor(.red)
-//                            .padding()
-//                    }
-//                }
-//                .onAppear {
-//                    Task {
-//                        await viewModelUser.fetchUsers()
-//                    }
-//                }
-//                .padding()
-//
-//
-//        VStack {
-//            if viewModelPost.posts.isEmpty {
-//                Text("Nenhum post encontrado.")
-//                    .padding()
-//            } else {
-//
-//                List(viewModelPost.posts, id: \.id) { post in
-//                    Text(post.text ?? "")
-//                }
-//            }
-//
-//            if let errorMessage = viewModelPost.errorMessage {
-//                Text("deu erro: \(errorMessage)")
-//                    .foregroundColor(.red)
-//                    .padding()
-//            }
-//        }
-//        .onAppear {
-//            Task {
-//                do {
-//                    try await viewModelPost.fetchPosts()
-//                } catch {
-//                    viewModelPost.errorMessage = "Erro ao carregar posts: \(error.localizedDescription)"
-//                }
-//            }
-//        }
-//        .padding()
-//    }
-//}
-//
-//#Preview {
-//    ContentView()
-//}
 import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject private var viewModel = LoginViewModel()
-    @State private var isAuthenticated: Bool = false
-    
+    @ObservedObject private var viewModelLogin = LoginViewModel()
+    @ObservedObject private var viewModelPost = PostViewModel()
+
+    @State private var navFeed = false
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                TextField("usuario", text: $viewModel.username)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                TextField("senha", text: $viewModel.password)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                
+
+                VStack(spacing: 15) {
+                    CustomTextField(placeholder: "Usuário", text: $viewModelLogin.username)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                    CustomTextField(placeholder: "Senha", text: $viewModelLogin.password, isSecure: true)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                }
+                .padding(.horizontal, 20)
+
                 Button(action: {
                     Task {
-                        try await viewModel.login(on: viewModel.baseURL)
-                        isAuthenticated = true
-                        print("entrou")
-                        try await viewModel.me(on: viewModel.baseURL, with: viewModel.tokenLogin ?? "")
+                        do {
+                            try await viewModelLogin.login(on: viewModelLogin.baseURL)
+                            print("fez login")
+                            navFeed = true
+                        } catch {
+                            print("Login error: \(error)")
+                        }
                     }
                 }) {
-                    Text("Login")
-                }
-                .padding()
-                
-                Button(action: {
-                    Task {
-                        try await viewModel.logout(on: viewModel.baseURL, with: viewModel.tokenLogin ?? "")
-                        isAuthenticated = false
-                        print("saiu")
-                    }
-                }) {
-                    Text("Logout")
-                }
-                .padding()
-                
-                NavigationLink(destination: CreatePostView(viewModel: viewModel, isAuthenticated: $isAuthenticated)) {
-                    Text("link para criar post")
-                }
-                .padding()
-                .disabled(!isAuthenticated)
-                
-                if let user = viewModel.user, isAuthenticated {
-                    Text("usuario logado: \(user.username)")
-                        .font(.title)
+                    Text("Fazer Login")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
                         .padding()
-                } else if !isAuthenticated {
-                    Text("nenhum usuario logado")
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal, 20)
+                .navigationDestination(isPresented: $navFeed) {
+                    HomeView(
+                        viewModelLogin: viewModelLogin,
+                        viewModelPost: viewModelPost
+                    )
                 }
             }
+            .padding()
         }
     }
 }
+
+struct CustomTextField: View {
+    let placeholder: String
+    @Binding var text: String
+    var isSecure: Bool = false
+    
+    var body: some View {
+        if isSecure {
+            SecureField(placeholder, text: $text)
+                .padding()
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(10)
+        } else {
+            TextField(placeholder, text: $text)
+                .padding()
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(10)
+        }
+    }
+}
+
 #Preview {
     ContentView()
 }
