@@ -19,12 +19,17 @@ struct CreateUserView: View {
         VStack(spacing: 20) {
             Spacer()
             Spacer()
-            Spacer()
+            Image("AppLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 300)
+            
             ZStack {
+                
                 VStack {
                     Image("fundoCadastro")
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
                 }
                 .padding(.horizontal, 25)
 

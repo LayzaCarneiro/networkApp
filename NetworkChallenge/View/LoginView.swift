@@ -24,7 +24,10 @@ struct LoginView: View {
                 Color.backgroundOffWhite.ignoresSafeArea()
                 
                 VStack {
-                    
+                    Image("AppLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300)
                     ZStack {
                         Image("loginTicket")
                             .resizable()
