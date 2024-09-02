@@ -24,7 +24,7 @@ struct ContentView: View {
                 Button(action: {
                     Task {
                         do {
-                            try await viewModelLogin.login(on: viewModelLogin.baseURL)
+                            try await viewModelLogin.login()
                             print("fez login")
                             navFeed = true
                         } catch {

@@ -21,7 +21,7 @@ class UserViewModel: ObservableObject {
 
     func fetchUsers() async {
         do {
-            let users = try await API.searchUsers(on: baseURL)
+            let users = try await API.searchUsers()
             DispatchQueue.main.async {
                 self.users = users
             }
@@ -44,8 +44,8 @@ class UserViewModel: ObservableObject {
         }
     }
     
-    func patchAvatar(with token: String, with avatar: Data, on baseURL: URL) async throws {
-        let url = baseURL.appendingPathComponent("users/avatar")
+    func patchAvatar(with token: String, with avatar: Data) async throws {
+        let url = API.baseURL.appendingPathComponent("users/avatar")
 
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
@@ -62,8 +62,8 @@ class UserViewModel: ObservableObject {
     }
 
 
-    func createUser(on baseURL: URL) async throws -> String {
-        let url = baseURL.appending(path: "users")
+    func createUser() async throws -> String {
+        let url = API.baseURL.appending(path: "users")
         
         let create = User.Create(name: name, username: username, password: password)
         
@@ -83,8 +83,8 @@ class UserViewModel: ObservableObject {
         return session.token
     }
     
-    func login(on baseURL: URL) async throws -> String {
-        let url = baseURL.appending(path: "users/login")
+    func login() async throws -> String {
+        let url = API.baseURL.appending(path: "users/login")
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

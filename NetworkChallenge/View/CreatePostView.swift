@@ -47,7 +47,6 @@ struct CreatePostView: View {
                         print("comunidade selecionada \(comunidadeSel)")
                         let postComunidade = "\(comunidadeSel)!@#$%ˆ&*\(postText)"
                         let post = try await viewModelPost.createPost(
-                            on: viewModelLogin.baseURL,
                             text: postComunidade,
                             with: viewModelLogin.tokenLogin ?? ""
                         )

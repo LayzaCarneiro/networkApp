@@ -75,7 +75,7 @@ struct LoginView: View {
                         
                         Task {
                             do {
-                                try await viewModelLogin.login(on: viewModelLogin.baseURL)
+                                try await viewModelLogin.login()
                                 navFeed = true
                                 
                                 isUsernameValid = true
@@ -104,12 +104,20 @@ struct LoginView: View {
                     }
                     .padding(.top, 35)
                     
-                    NavigationLink(destination: CreateUserView()) {
-                        Text("Cadastro")
-                            .font(.title3, weight: .regular)
-                            .underline(true, color: .brownPixel)
+                    HStack(spacing: 0) {
+                        
+                        Text("Se não possui conta. ")
+                            .font(.body, weight: .regular)
                             .foregroundStyle(.brownPixel)
                             .padding(.top, 15)
+                        
+                        NavigationLink(destination: CreateUserView()) {
+                            Text("Se cadastre.")
+                                .font(.body, weight: .regular)
+                                .underline(true, color: .brownPixel)
+                                .foregroundStyle(.brownPixel)
+                                .padding(.top, 15)
+                        }
                     }
                 }
                 .navigationDestination(isPresented: $navFeed) {

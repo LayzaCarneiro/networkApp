@@ -95,9 +95,7 @@ struct TimeLineView: View {
                             }
                         }
                     }
-                    .border(.blue)
                     .frame(width: 100, height: 100)
-                    .border(.yellow)
                     .padding(.leading, 250)
                     
                     ScrollView {
@@ -118,7 +116,7 @@ struct TimeLineView: View {
                 }
             }
             .onAppear {
-                if let avatarString = viewModelLogin.user?.avatar, !avatarString.isEmpty {
+                if let avatarString = viewModelUser.user?.avatar, !avatarString.isEmpty {
                     avatarURL = URL(string: "http://127.0.0.1:8080/\(avatarString)")
                 }
             }
@@ -194,16 +192,12 @@ struct SheetViewCharacter: View {
     let avatarInsetos = ["insect_1", "insect_2", "insect_3", "insect_4"]
     
     var body: some View {
-        VStack{
+        VStack {
             Text("Select character")
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 .foregroundStyle(.white)
             
-            VStack{
-//                ForEach(avatarInsetos, .self) { index
-//                    
-//                }
-                
+            VStack {
                 ForEach(0..<avatarInsetos.count) { index in
                     Image(avatarInsetos[index])
                     .resizable()
@@ -213,7 +207,7 @@ struct SheetViewCharacter: View {
                         Task {
                             do {
                                 if let avatarData = UIImage(named: avatarInsetos[index])?.pngData() {
-                                    try await viewModelUser.patchAvatar(with: viewModelLogin.tokenLogin!, with: avatarData, on: viewModelUser.baseURL)
+                                    try await viewModelUser.patchAvatar(with: viewModelLogin.tokenLogin!, with: avatarData)
                                     
                                     DispatchQueue.main.async {
                                         viewModelLogin.user?.avatar = avatarInsetos[index]
@@ -334,15 +328,15 @@ struct PostView: View {
             
             Button {
                 Task {
-                    let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                    let users = try await viewModelPost.postLikingUsers(postId: post.id, with: userToken)
                     likingUsers = users
                     
                     if let user = user, likingUsers.contains(where: { $0.id == user.id }) {
                         isLiked = false
-                        try await viewModelPost.dislikePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                        try await viewModelPost.dislikePost(postId: post.id, with: userToken)
                     } else {
                         isLiked = true
-                        try await viewModelPost.likePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                        try await viewModelPost.likePost(postId: post.id, with: userToken)
                     }
                     
                     await viewModelPost.fetchPosts()
@@ -359,7 +353,7 @@ struct PostView: View {
         .onAppear {
             Task {
                 if let user = user {
-                    let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                    let users = try await viewModelPost.postLikingUsers(postId: post.id, with: userToken)
                     likingUsers = users
                     isLiked = likingUsers.contains(where: { $0.id == user.id })
                 }

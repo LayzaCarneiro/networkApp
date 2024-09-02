@@ -21,7 +21,7 @@ struct LogoutView: View {
                 }
                 Button(action: {
                     Task {
-                        try await viewModel.login(on: viewModel.baseURL)
+                        try await viewModel.login()
                     }
                 }) {
                     Text("Login")
@@ -31,7 +31,7 @@ struct LogoutView: View {
 
                 Button(action: {
                     Task {
-                        try await viewModel.logout(on: viewModel.baseURL, with: viewModel.tokenLogin!)
+                        try await viewModel.logout(with: viewModel.tokenLogin!)
                     }
                 }) {
                     Text("Logout")

@@ -9,8 +9,12 @@ import Foundation
 
 enum API {
     
-    static func searchPosts(on baseURL: URL) async throws -> [Post] {
-        let url = baseURL.appending(path: "posts")
+//    static let baseURL: URL = URL(string: "http://10.45.53.186:8080")!
+    static let baseURL: URL = URL(string: "http://127.0.0.1:8080")!
+
+    
+    static func searchPosts() async throws -> [Post] {
+        let url = API.baseURL.appending(path: "posts")
         var components = URLComponents(string: url.absoluteString)!
         components.queryItems = [
             URLQueryItem(name: "expand", value: "user_id")
@@ -22,8 +26,8 @@ enum API {
         return posts
     }
     
-    static func searchUsers(on baseURL: URL) async throws -> [User] {
-        let url = baseURL.appending(path: "users")
+    static func searchUsers() async throws -> [User] {
+        let url = API.baseURL.appending(path: "users")
         let (data, response) = try await URLSession.shared.data(from: url)
         
         try check(data: data, response: response)
@@ -32,8 +36,8 @@ enum API {
         return users
     }
     
-    static func searchReports(on baseURL: URL, postID: UUID) async throws -> [Report] {
-        let url = baseURL.appending(path: "reports/\(postID.uuidString)")
+    static func searchReports(postID: UUID) async throws -> [Report] {
+        let url = API.baseURL.appending(path: "reports/\(postID.uuidString)")
         let (data, response) = try await URLSession.shared.data(from: url)
         
         try check(data: data, response: response)
@@ -53,8 +57,8 @@ enum API {
         }
     }
     
-    static func createUser(on baseURL: URL) async throws -> String {
-        let url = baseURL.appending(path: "users")
+    static func createUser() async throws -> String {
+        let url = API.baseURL.appending(path: "users")
         
         let create = User.Create(name: "Lorem Ipsum", username: "lorem-ipsum", password: "12345")
         
@@ -74,8 +78,8 @@ enum API {
         return session.token
     }
     
-    static func login(on baseURL: URL) async throws -> String {
-        let url = baseURL.appending(path: "users/login")
+    static func login() async throws -> String {
+        let url = API.baseURL.appending(path: "users/login")
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -97,8 +101,8 @@ enum API {
         return session.token
     }
     
-    static func me(on baseURL: URL, with token: String) async throws -> User {
-        let url = baseURL.appending(path: "users/me")
+    static func me(with token: String) async throws -> User {
+        let url = API.baseURL.appending(path: "users/me")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -114,8 +118,8 @@ enum API {
         return user
     }
     
-    static func logout(on baseURL: URL, with token: String) async throws {
-        let url = baseURL.appending(path: "users/logout")
+    static func logout(with token: String) async throws {
+        let url = API.baseURL.appending(path: "users/logout")
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -132,8 +136,8 @@ enum API {
         print(session.token)
     }
     
-    static func likePost(on baseURL: URL, postId: UUID, with token: String) async throws {
-        let url = baseURL.appending(path: "likes/\(postId)")
+    static func likePost(postId: UUID, with token: String) async throws {
+        let url = API.baseURL.appending(path: "likes/\(postId)")
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -148,8 +152,8 @@ enum API {
         print("Like")
     }
     
-    static func dislikePost(on baseURL: URL, postId: UUID, with token: String) async throws {
-        let url = baseURL.appending(path: "likes/\(postId)")
+    static func dislikePost(postId: UUID, with token: String) async throws {
+        let url = API.baseURL.appending(path: "likes/\(postId)")
 
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -164,8 +168,8 @@ enum API {
         print("Dislike")
     }
 
-    static func postLikingUsers(on baseURL: URL, postId: UUID, with token: String) async throws -> [User] {
-        let url = baseURL.appending(path: "likes/liking_users/\(postId)")
+    static func postLikingUsers(postId: UUID, with token: String) async throws -> [User] {
+        let url = API.baseURL.appending(path: "likes/liking_users/\(postId)")
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

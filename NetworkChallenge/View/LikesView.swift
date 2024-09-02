@@ -58,15 +58,15 @@ struct PostRowView: View {
                 Button {
                     
                     Task {
-                        let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                        let users = try await viewModelPost.postLikingUsers(postId: post.id, with: userToken)
                         likingUsers = users
 
                         if let user = user, likingUsers.contains(where: { $0.id == user.id }) {
                             isLiked = false
-                            try await viewModelPost.dislikePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                            try await viewModelPost.dislikePost(postId: post.id, with: userToken)
                         } else {
                             isLiked = true
-                            try await viewModelPost.likePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                            try await viewModelPost.likePost(postId: post.id, with: userToken)
                         }
 
                         await viewModelPost.fetchPosts()
@@ -81,7 +81,7 @@ struct PostRowView: View {
         .onAppear {
             Task {
                 if let user = user {
-                    let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                    let users = try await viewModelPost.postLikingUsers(postId: post.id, with: userToken)
                     likingUsers = users
                     isLiked = likingUsers.contains(where: { $0.id == user.id })
                 }

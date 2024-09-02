@@ -9,8 +9,8 @@ struct HomeView: View {
     @State var comunidadeSel: String = ""
 
     let comunidades: [String: String] = [
-        "Somos humanos. Não robôs.": "fundo",
-        "Vida de inseto": "fundo"
+        "Somos humanos. Não robôs.": "robo",
+        "Vida de inseto": "inseto"
     ]
     
     var body: some View {
@@ -18,7 +18,6 @@ struct HomeView: View {
             ZStack {
                 Image(isAceso ? "backgroundAceso" : "background")
                     .resizable()
-                    .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
@@ -46,7 +45,6 @@ struct HomeView: View {
 //                                            .padding(.trailing, -40)
 //                                            .allowsHitTesting(false)
 //                                    }
-                                    
                                     VStack {
                                         NavigationLink(destination: TimeLineView(viewModelLogin: viewModelLogin)) {
                                             VStack {
@@ -63,7 +61,7 @@ struct HomeView: View {
                                                     Image("FrameName")
                                                         .resizable()
                                                         .scaledToFit()
-                                                        .frame(width: 300, height: 100)
+                                                        .frame(width: 330, height: 120)
                                                     Text(key)
                                                         .font(.body)
                                                         .foregroundColor(.black)
@@ -97,13 +95,13 @@ struct HomeView: View {
                 
                 VStack {
                     HStack {
-                        Button(action: {
+                        Button {
                             print("Botão esquerdo pressionado")
-                        }) {
+                        } label: {
                             Image("SearchButton")
                                 .resizable()
-                                .frame(width: 100, height: 80)
-                                .padding()
+                                .frame(width: 60, height: 55)
+                                .padding(.leading, 25)
                         }
                         .buttonStyle(PlainButtonStyle())
                         
@@ -111,15 +109,15 @@ struct HomeView: View {
                         
                         Button {
                             Task {
-                                try await viewModelLogin.logout(on: viewModelLogin.baseURL, with: viewModelLogin.tokenLogin!)
+                                try await viewModelLogin.logout(with: viewModelLogin.tokenLogin!)
                                 navFeed = true
                                 
                             }
                         } label: {
                             Image("ConfigButton")
                                 .resizable()
-                                .frame(width: 100, height: 80)
-                                .padding()
+                                .frame(width: 60, height: 55)
+                                .padding(.trailing, 25)
                         }
                         .buttonStyle(PlainButtonStyle())
                         .navigationDestination(isPresented: $navFeed) {
