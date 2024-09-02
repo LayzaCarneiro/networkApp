@@ -24,7 +24,15 @@ struct LoginView: View {
                 Color.backgroundOffWhite.ignoresSafeArea()
                 
                 VStack {
-                                        
+                    
+                    Text("Villary")
+                        .font(.largeTitle, weight: .semibold)
+                        .foregroundColor(.brownPixel)
+                    
+                    Text("Login")
+                        .font(.title3, weight: .semibold)
+                        .foregroundColor(.brownPixel)
+                    
                     ZStack {
                         Image("loginTicket")
                             .resizable()
@@ -114,6 +122,7 @@ struct LoginView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .accentColor(.brownPixel)
     }
 }

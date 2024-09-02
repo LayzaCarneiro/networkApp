@@ -10,14 +10,16 @@ import SwiftUI
 struct TimeLineView: View {
     @State private var showingSheetPost = false
     @State private var showingSheetCharacter = false
-    @State private var isLiked = false
-    @StateObject private var viewModel = CharacterViewModel()
     @StateObject var textCount = TextCount()
     
+    @StateObject var viewModel = CharacterViewModel()
     @StateObject var viewModelPost = PostViewModel()
-    @ObservedObject var viewModelReport = ReportViewModel()
+    @StateObject var viewModelUser = UserViewModel()
+    @StateObject var viewModelReport = ReportViewModel()
+    @StateObject var viewModelLogin = LoginViewModel()
 
     @State var comunidadeSel: String = "FORMIGAS"
+    
     var comunidades: [String] = ["FORMIGAS", "ROBOS", "PADRINHOSMAGICOS"]
     
     var filteredPosts: [Post] {
@@ -51,10 +53,8 @@ struct TimeLineView: View {
                         } label: {
                             Image(systemName: "pencil.circle.fill")
                                 .resizable()
-                            //.frame(width: 80, height:150)
                                 .scaledToFill()
                                 .foregroundColor(.yellow)
-                                //.rotationEffect(.degrees(30.0))
                         }
                         
                         .sheet(isPresented: $showingSheetPost) {
@@ -71,18 +71,16 @@ struct TimeLineView: View {
                             .presentationDragIndicator(.hidden)
                             
                         }
-                        //.padding(.leading, 250)
+
                         Button {
                             showingSheetCharacter = true
                         } label: {
                             Image( systemName: "ladybug.circle.fill")
                                 .resizable()
-                            //.frame(width: 80, height:150)
                                 .scaledToFill()
                                 .foregroundColor(.purple)
                                 .rotationEffect(.degrees(30.0))
                         }
-//                        .padding(.top, 10)
                         .sheet(isPresented: $showingSheetCharacter) {
                             ZStack{
                                 Color("skyblue")
@@ -97,12 +95,11 @@ struct TimeLineView: View {
                     }
                     .frame(width: 100, height: 40)
                     .padding(.leading, 250)
-                    //.padding(.bottom, 0)
+
                     ScrollView {
-//                        PostView(viewModel: viewModel, textCount: textCount)
+
                         ForEach(viewModelPost.posts) { post in
-                            PostView(viewModel: viewModel, textCount: textCount, text: post.text)
-//                            Text(post.text)
+                            PostView(text: post.text, viewModel: viewModel, textCount: textCount, viewModelPost: viewModelPost, post: post, userToken: viewModelLogin.tokenLogin!, user: viewModelLogin.user)
                         }
                     }
                 }
@@ -110,7 +107,7 @@ struct TimeLineView: View {
                     Task {
                         do {
                             try await viewModelPost.fetchPosts()
-//                            try await viewModelUser.fetchUsers()
+                            try await viewModelUser.fetchUsers()
                         } catch {
                             viewModelPost.errorMessage = "erro carregar posts: \(error.localizedDescription)"
                         }
@@ -160,27 +157,26 @@ struct SheetViewPost: View {
                     .padding(.leading, 250)
                 
             }
-            .overlay(
-                    RoundedRectangle(cornerRadius: 14)
-                        .stroke(.white, lineWidth: 2)
-               )
+            .overlay( RoundedRectangle(cornerRadius: 14) .stroke(.white, lineWidth: 2))
             .padding()
         
         }
+        
         Spacer()
-            .toolbar{
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Post") {
-                        sendText(textCount.text)
-                    }
-                }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
+        
+        .toolbar{
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Post") {
+//                        sendText(textCount.text)
                 }
             }
-            .foregroundColor(.white)
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    dismiss()
+                }
+            }
+        }
+        .foregroundColor(.white)
     }
 }
 
@@ -219,7 +215,6 @@ struct SheetViewCharacter: View {
                         Image("insect_4")
                             .resizable()
                             .frame(width: 80, height:150)
-                        //.clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                     }
                     .padding(.leading, 50)
                 }
@@ -237,11 +232,19 @@ class CharacterViewModel: ObservableObject {
 
 struct PostView: View {
     @State private var isLiked = false
+    @State var text: String = ""
+    @State private var likingUsers: [User] = []
+
     @ObservedObject var viewModel: CharacterViewModel
     @ObservedObject var textCount: TextCount
-    @State var text: String = ""
     
-    var body: some View{
+    @StateObject var viewModelPost = PostViewModel()
+    
+    var post: Post
+    var userToken: String
+    var user: User?
+    
+    var body: some View {
         
         ZStack {
             Image("tree")
@@ -265,21 +268,43 @@ struct PostView: View {
                     .padding(.top, 200)
                     .rotationEffect(.degrees(130.0))
             }
-                        
-//            TextDisplayView(textCount: textCount)
+                                    
             Text(text)
+                .font(.body)
                 .padding(.leading, 120)
                 .padding(.trailing, 70)
-
             
             Button {
-                self.isLiked.toggle()
+                Task {
+                    let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                    likingUsers = users
+
+                    if let user = user, likingUsers.contains(where: { $0.id == user.id }) {
+                        isLiked = false
+                        try await viewModelPost.dislikePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                    } else {
+                        isLiked = true
+                        try await viewModelPost.likePost(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                    }
+
+                    await viewModelPost.fetchPosts()
+                }
             } label: {
                 Image(systemName: isLiked ? "heart.fill" : "heart")
                     .foregroundColor(.red)
                     .fontWeight(.bold)
                     .padding(.top, 100)
                     .padding(.leading, 250)
+            }
+
+        }
+        .onAppear {
+            Task {
+                if let user = user {
+                    let users = try await viewModelPost.postLikingUsers(on: viewModelPost.baseURL, postId: post.id, with: userToken)
+                    likingUsers = users
+                    isLiked = likingUsers.contains(where: { $0.id == user.id })
+                }
             }
         }
         .padding(.top, -60)
@@ -302,10 +327,6 @@ struct TextDisplayView: View {
         Text(textCount.text.isEmpty ? "" : textCount.text)
             .padding()
     }
-}
-
-func sendText(_ text: String) {
-    print("Texto enviado: \(text)")
 }
 
 #Preview {

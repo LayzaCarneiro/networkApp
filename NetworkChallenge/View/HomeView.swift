@@ -14,12 +14,13 @@ struct HomeView: View {
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Image(isAceso ? "backgroundAceso" : "background")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
+                
                 VStack {
                 }
                 .background(Image("")
@@ -36,18 +37,18 @@ struct HomeView: View {
                             HStack(spacing: 0) {
                                 ForEach(comunidades.keys.sorted(), id: \.self) { key in
                                     
-                                    if key != comunidades.keys.sorted().first {
-                                        Image("chevron")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 20)
-                                            .padding(.leading, 15)
-                                            .padding(.trailing, -40)
-                                            .allowsHitTesting(false)
-                                    }
+//                                    if key != comunidades.keys.sorted().first {
+//                                        Image("chevron")
+//                                            .resizable()
+//                                            .scaledToFit()
+//                                            .frame(width: 20)
+//                                            .padding(.leading, 15)
+//                                            .padding(.trailing, -40)
+//                                            .allowsHitTesting(false)
+//                                    }
                                     
                                     VStack {
-                                        NavigationLink(destination: TimeLineView()) {
+                                        NavigationLink(destination: TimeLineView(viewModelLogin: viewModelLogin)) {
                                             VStack {
                                                 Image("Frame")
                                                     .resizable()
@@ -74,14 +75,15 @@ struct HomeView: View {
                                             .containerRelativeFrame(.horizontal)
                                         }
                                     }
-                                    if key != comunidades.keys.sorted().last {
-                                        Image("chevron")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 20)
-                                            .padding(.leading, -40)
-                                            .allowsHitTesting(false)
-                                    }
+                                    
+//                                    if key != comunidades.keys.sorted().last {
+//                                        Image("chevron")
+//                                            .resizable()
+//                                            .scaledToFit()
+//                                            .frame(width: 20)
+//                                            .padding(.leading, -40)
+//                                            .allowsHitTesting(false)
+//                                    }
                                 }
                             }
                         }
@@ -107,15 +109,22 @@ struct HomeView: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            print("Botão direito pressionado")
-                        }) {
+                        Button {
+                            Task {
+                                try await viewModelLogin.logout(on: viewModelLogin.baseURL, with: viewModelLogin.tokenLogin!)
+                                navFeed = true
+                                
+                            }
+                        } label: {
                             Image("ConfigButton")
                                 .resizable()
                                 .frame(width: 100, height: 80)
                                 .padding()
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .navigationDestination(isPresented: $navFeed) {
+                            LoginView()
+                        }
                     }
                     Spacer()
                 }
