@@ -14,6 +14,7 @@ class LoginViewModel: ObservableObject {
     
     @Published var username: String = ""
     @Published var password: String = ""
+    @Published var avatar: String = ""
     
     @Published var tokenLogin: String?
     

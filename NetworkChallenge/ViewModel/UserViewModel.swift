@@ -14,6 +14,7 @@ class UserViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var username: String = ""
     @Published var password: String = ""
+    @Published var avatar: String = ""
     @Published var user: User?
 
     let baseURL = URL(string: "http://127.0.0.1:8080")!
@@ -55,6 +56,7 @@ class UserViewModel: ObservableObject {
         ]
         
         let (data, response) = try await URLSession.shared.data(for: request)
+        
         try check(data: data, response: response)
 //        self.user?.avatar = avatarBase64
     }
