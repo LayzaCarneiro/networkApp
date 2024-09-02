@@ -29,8 +29,8 @@ struct TimeLineView: View {
                             Image(systemName: "pencil.circle.fill")
                                 .resizable()
                             //.frame(width: 80, height:150)
-                                .scaledToFill()
-                                .foregroundColor(.yellow)
+                                .scaledToFit()
+                                .foregroundColor(.verdeescuro)
                                 //.rotationEffect(.degrees(30.0))
                         }
                         
@@ -56,9 +56,10 @@ struct TimeLineView: View {
                             Image( systemName: "ladybug.circle.fill")
                                 .resizable()
                             //.frame(width: 80, height:150)
-                                .scaledToFill()
-                                .foregroundColor(.purple)
+                                .scaledToFit()
+                                .foregroundColor(.pink)
                                 .rotationEffect(.degrees(30.0))
+                                //.background(Color.white)
                         }
                         //.padding(.top, 10)
                         .sheet(isPresented: $showingSheetCharacter) {
@@ -77,7 +78,7 @@ struct TimeLineView: View {
                     .padding(.leading, 250)
                     //.padding(.bottom, 0)
                     ScrollView{
-                        PostView(viewModel: viewModel, textCount: textCount)
+                        PostView( viewModel: viewModel, textCount: textCount)
                     }
                 }
                 
@@ -206,9 +207,12 @@ class CharacterViewModel: ObservableObject {
 
 struct PostView: View {
     @State private var isLiked = false
+    @State private var report = false
+    @State private var isMyPost = false
     @ObservedObject var viewModel: CharacterViewModel
     @ObservedObject var textCount: TextCount
     
+    //como resolver os botões que estão se impedindo
     var body: some View{
         
         ZStack {
@@ -216,41 +220,68 @@ struct PostView: View {
                 .resizable()
                 .scaledToFill()
                 .padding(.bottom, -400)
-            Image("whitecloud2")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 300, height: 330)
-                .padding(.top, 50)
-                .padding(.leading, 70)
-                .foregroundColor(.white)
-                .opacity(0.6)
-            if let character = viewModel.selectedCharacter {
-                Image(character)
+            HStack {
+                if isMyPost { // se for autoral deleta se for dos outros reporta
+                    Button(action: {
+                        // integracao del post
+                    }) {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                    }
+                } else {
+                    Button(action: {
+                        self.report.toggle()
+                    }) {
+                        Image(systemName: report ? "exclamationmark.bubble.fill" : "exclamationmark.bubble")
+                            .foregroundColor(.yellow)
+                    }
+                }
+            
+        
+            
+                
+                Image("whitecloud2")
                     .resizable()
-                    .frame(width: 45, height: 90)
-                    .padding(.leading)
-                    .padding(.top, 200)
-                    .rotationEffect(.degrees(130.0))
-            }
-            TextDisplayView(textCount: textCount)
-                .frame(width: 300, height: 330)
-                .padding(.top, 40)
-                .padding(.leading, 80)
-                //.foregroundColor(.white)
-            Button {
-                self.isLiked.toggle()
-            } label: {
-                Image(systemName: isLiked ? "heart.fill" : "heart")
-                    .foregroundColor(.red)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding(.top, 230)
-                    .padding(.leading, 300)
-            }
+                    .scaledToFill()
+                    .frame(width: 300, height: 330)
+                    .padding(.top, 50)
+                    .padding(.leading, 50)
+                    .foregroundColor(.white)
+                    .opacity(0.6)
         }
-        .padding(.top, -60)
+            .frame(width: 300)
+            
+                if let character = viewModel.selectedCharacter {
+                    Image(character)
+                        .resizable()
+                        .frame(width: 45, height: 90)
+                        .padding(.leading)
+                        .padding(.top, 200)
+                        .rotationEffect(.degrees(130.0))
+                }
+                
+                TextDisplayView(textCount: textCount)
+                    .frame(width: 300, height: 330)
+                    .padding(.top, 40)
+                    .padding(.leading, 80)
+                //.foregroundColor(.white)
+                
+                Button {
+                    self.isLiked.toggle()
+                } label: {
+                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                        .foregroundColor(.red)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(.top, 150)
+                        .padding(.leading, 320)
+                }
+            }
+            .padding(.top, -60)
+        }
     }
-}
+
+
 class TextCount: ObservableObject {
     @Published var counted = "0/150"
     @Published var text = "" {
