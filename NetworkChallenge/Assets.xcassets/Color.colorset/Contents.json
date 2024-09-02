@@ -8,6 +8,9 @@
           "blue" : "0xDA",
           "green" : "0xBE",
           "red" : "0x86"
+          "blue" : "0xFF",
+          "green" : "0xFF",
+          "red" : "0xFE"
         }
       },
       "idiom" : "universal"
