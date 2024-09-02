@@ -30,41 +30,67 @@ struct HomeView: View {
                     isAceso.toggle()
                 }
                 
-                VStack {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 0) {
-                            ForEach(comunidades.keys.sorted(), id: \.self) { key in
-                                NavigationLink(destination: TimeLineView()) {
-                                    VStack {
-                                        Image("Frame")
+                HStack {
+                    HStack {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 0) {
+                                ForEach(comunidades.keys.sorted(), id: \.self) { key in
+                                    
+                                    if key != comunidades.keys.sorted().first {
+                                        Image("chevron")
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(height: 300)
-                                            .background(
-                                                Image(comunidades[key]!)
+                                            .frame(width: 20)
+                                            .padding(.leading, 15)
+                                            .padding(.trailing, -40)
+                                            .allowsHitTesting(false)
+                                    }
+                                    
+                                    VStack {
+                                        NavigationLink(destination: TimeLineView()) {
+                                            VStack {
+                                                Image("Frame")
                                                     .resizable()
-                                                    .frame(width: 200, height: 200)
-                                            )
-                                        ZStack {
-                                            Image("FrameName")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 300, height: 100)
-                                            Text(key)
-                                                .font(.system(.body, design: .monospaced))
-                                                .foregroundColor(.black)
-                                                .fontWeight(.heavy)
-                                                .frame(width: 200)
+                                                    .scaledToFit()
+                                                    .frame(height: 300)
+                                                    .background(
+                                                        Image(comunidades[key]!)
+                                                            .resizable()
+                                                            .frame(width: 200, height: 200)
+                                                    )
+                                                ZStack {
+                                                    Image("FrameName")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 300, height: 100)
+                                                    Text(key)
+                                                        .font(.body)
+                                                        .foregroundColor(.black)
+                                                        .fontWeight(.semibold)
+                                                        .frame(width: 180)
+                                                }
+                                            }
+                                            .padding()
+                                            .containerRelativeFrame(.horizontal)
                                         }
                                     }
-                                    .padding()
-                                    .containerRelativeFrame(.horizontal)
+                                    if key != comunidades.keys.sorted().last {
+                                        Image("chevron")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20)
+                                            .padding(.leading, -40)
+                                            .allowsHitTesting(false)
+                                    }
                                 }
                             }
                         }
+                        .scrollTargetLayout()
+                        .scrollTargetBehavior(.paging)
+                        
+                        
                     }
-                    .scrollTargetLayout()
-                    .scrollTargetBehavior(.paging)
+                    
                 }
                 
                 VStack {

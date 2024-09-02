@@ -98,19 +98,20 @@ struct CreateUserView: View {
                     
                     showErrorMessages = true
                 } label: {
-                    Text("Criar conta")
-                        .font(.title2)
-                        .foregroundColor(.backgroundOffWhite)
-                        .fontWeight(.semibold)
-                        .padding()
+                    ZStack {
+                        Image("botao")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 100)
+                        
+                        Text("Criar conta")
+                            .font(.title2)
+                            .foregroundColor(.backgroundOffWhite)
+                            .fontWeight(.semibold)
+                            .padding()
+                    }
                 }
                 .disabled(viewModelUser.name.isEmpty || viewModelUser.username.isEmpty || viewModelUser.password.isEmpty)
-                .background(
-                    Image("botao")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 100)
-                )
                 .navigationDestination(isPresented: $navFeed) {
                     HomeView(viewModelLogin: viewModelLogin, viewModelPost: viewModelPost)
                 }
