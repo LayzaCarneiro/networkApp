@@ -49,20 +49,22 @@ struct TimeLineView: View {
                         Button {
                             showingSheetPost = true
                         } label: {
-                            Image("pencil")
+                            Image(systemName: "pencil.circle.fill")
                                 .resizable()
                             //.frame(width: 80, height:150)
                                 .scaledToFill()
-                                .rotationEffect(.degrees(30.0))
+                                .foregroundColor(.yellow)
+                                //.rotationEffect(.degrees(30.0))
                         }
                         
                         .sheet(isPresented: $showingSheetPost) {
                             NavigationStack {
                                 ZStack{
-                                    Image("background_insects")
-                                        .resizable()
-                                        .scaledToFill()
-                                    SheetViewPost( textCount: textCount)
+                                    Color("skyblue")
+                                        .ignoresSafeArea()
+                                        //.resizable()
+                                        //.scaledToFill()
+                                    SheetViewPost( textCount: textCount, viewModel: viewModel)
                                 }
                             }
                             .presentationDetents([.height(250)])
@@ -73,26 +75,28 @@ struct TimeLineView: View {
                         Button {
                             showingSheetCharacter = true
                         } label: {
-                            Image( "spiderweb")
+                            Image( systemName: "ladybug.circle.fill")
                                 .resizable()
                             //.frame(width: 80, height:150)
                                 .scaledToFill()
+                                .foregroundColor(.purple)
                                 .rotationEffect(.degrees(30.0))
                         }
-                        .padding(.top, 10)
+//                        .padding(.top, 10)
                         .sheet(isPresented: $showingSheetCharacter) {
                             ZStack{
-                                Image("background_insects")
-                                    .resizable()
-                                    .scaledToFill()
+                                Color("skyblue")
+                                    .ignoresSafeArea()
+//                                    .resizable()
+//                                    .scaledToFill()
                                 SheetViewCharacter( viewModel: viewModel)
                                     .presentationDetents([.medium])
                                     .presentationDragIndicator(.hidden)
                             }
                         }
                     }
-                    .frame(width: 200, height: 150)
-                    .padding(.leading, 150)
+                    .frame(width: 100, height: 40)
+                    .padding(.leading, 250)
                     //.padding(.bottom, 0)
                     ScrollView {
 //                        PostView(viewModel: viewModel, textCount: textCount)
@@ -120,28 +124,48 @@ struct TimeLineView: View {
 
 struct SheetViewPost: View {
     @Environment(\.dismiss) var dismiss
-    @State private var characterLimit = 20
+    @State private var characterLimit = 150
     @ObservedObject var textCount: TextCount
-    
+    @ObservedObject var viewModel: CharacterViewModel
+
     var body: some View {
         NavigationStack{
-            HStack{
-                Image("insect_3")
-                    .resizable()
-                    .frame(width: 30, height:60)
-                    .padding(.leading)
-                TextField("Placeholder", text: $textCount.text, axis: .vertical)
-                    .padding()
-                    .multilineTextAlignment(.leading)
-                    .onChange( of: textCount.text) { _ in
-                        textCount.text = String(textCount.text.prefix(characterLimit))
+            ZStack {
+//                    Rectangle()
+//                        .foregroundColor(.white)
+//                        .opacity(0.6)
+                HStack {
+                    if let character = viewModel.selectedCharacter {
+                        Image(character)
+                            .resizable()
+                            .frame(width: 30, height:60)
+                            //.padding(.trailing, 300)
+                            //.padding(.bottom, 200)
                     }
+                    TextField("O que está acontecendo?", text: $textCount.text, axis: .vertical)
+//                            .padding(.leading, 20)
+//                            .padding(.bottom, 100)
+                        .multilineTextAlignment(.leading)
+                        .onChange( of: textCount.text) { _ in
+                            textCount.text = String(textCount.text.prefix(characterLimit))
+                        }
+                        .foregroundColor(.white)
+                }
+                .padding(.leading, 20)
+                .padding(.trailing, 20)
+                .padding(.bottom, 80)
+                Text("\(textCount.counted)")
+                    .foregroundColor(.white)
+                    .padding(.top, 200)
+                    .padding(.leading, 250)
                 
             }
-            Text("\(textCount.counted)")
-                .foregroundColor(.gray)
-                .padding(.top)
-            
+            .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(.white, lineWidth: 2)
+               )
+            .padding()
+        
         }
         Spacer()
             .toolbar{
@@ -156,6 +180,7 @@ struct SheetViewPost: View {
                     }
                 }
             }
+            .foregroundColor(.white)
     }
 }
 
@@ -167,6 +192,8 @@ struct SheetViewCharacter: View {
         VStack{
             Text("Select character")
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                .foregroundStyle(.white)
+
             VStack{
                 HStack{
                     Button(action: { viewModel.selectedCharacter = "insect_1" }) {
@@ -221,8 +248,11 @@ struct PostView: View {
                 .resizable()
                 .scaledToFill()
                 .padding(.bottom, -400)
-            Rectangle()
-                .frame(width: 250, height: 150)
+            Image("whitecloud2")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 300, height: 330)
+                .padding(.top, 50)
                 .padding(.leading, 70)
                 .foregroundColor(.white)
                 .opacity(0.6)
@@ -281,3 +311,10 @@ func sendText(_ text: String) {
 #Preview {
     TimeLineView()
 }
+
+
+//            TextDisplayView(textCount: textCount)
+//                .frame(width: 300, height: 330)
+//                .padding(.top, 40)
+//                .padding(.leading, 80)
+                //.foregroundColor(.white)
