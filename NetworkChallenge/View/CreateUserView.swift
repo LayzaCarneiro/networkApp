@@ -5,6 +5,7 @@ struct CreateUserView: View {
     @ObservedObject private var viewModelLogin = LoginViewModel()
     @ObservedObject private var viewModelPost = PostViewModel()
     @ObservedObject var viewModelUser = UserViewModel()
+    
     @State var isPasswordValid: Bool = true
     @State var isUsernameValid: Bool = true
     @State var isUsernameAvailable: Bool = true
@@ -33,66 +34,46 @@ struct CreateUserView: View {
                     
                     VStack {
                         
-                        TextField("Nome", text: $viewModelUser.name)
-                            .font(.title3)
-                            .padding()
-                            .background(
-                                Image("fundoTextField")
-                                    .resizable()
-                                    .scaledToFit()
-                            )
-                            .disableAutocorrection(true)
-                            .padding(.horizontal, 50)
+                        LoginTicket(placeholder: "Nome", textfield: "textfield", field: $viewModelUser.name, frameTextfield: 280)
                         
                         Spacer()
-                        TextField("Usuário", text: $viewModelUser.username)
-                            .font(.title3)
-                            .padding()
-                            .background(
-                                Image("fundoTextField")
-                                    .resizable()
-                                    .scaledToFit()
-                            )
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .padding(.horizontal, 50)
+                        
+                        if showErrorMessages && !isUsernameValid {
+                            LoginTicket(placeholder: "Usuário", textfield: "wrongTextfield", field: $viewModelUser.username, frameTextfield: 280)
+                            
+                            Text("O usuário deve possuir 5 ou mais caracteres.")
+                                .font(.caption1)
+                                .foregroundColor(.red)
+                            
+                        } else if showErrorMessages && !isUsernameAvailable {
+                            LoginTicket(placeholder: "Usuário", textfield: "wrongTextfield", field: $viewModelUser.username, frameTextfield: 280)
+                            
+                            Text("O nome de usuário já existe.")
+                                .font(.caption1)
+                                .foregroundColor(.red)
+                        } else {
+                            LoginTicket(placeholder: "Usuário", textfield: "textfield", field: $viewModelUser.username, frameTextfield: 280)
+                        }
+
                         Spacer()
                         
-                        SecureField("Senha", text: $viewModelUser.password)
-                            .font(.title3)
-                            .padding()
-                            .background(
-                                Image("fundoTextField")
-                                    .resizable()
-                                    .scaledToFit()
-                            )
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .padding(.horizontal, 50)
+                        if showErrorMessages && !isPasswordValid {
+                            LoginTicket(placeholder: "Senha", textfield: "wrongTextfield", field: $viewModelUser.password, isSecure: true , frameTextfield: 280)
+                            
+                            Text("Sua senha deve possuir 5 ou mais caracteres.")
+                                .font(.caption1)
+                                .foregroundColor(.red)
+                        } else {
+                            LoginTicket(placeholder: "Senha", textfield: "textfield", field: $viewModelUser.password, isSecure: true , frameTextfield: 280)
+                        }
+                        
                     }
                     .frame(height: 250)
                 }
                 
-                
-                
-                if showErrorMessages && !isUsernameValid {
-                    Text("O usuário deve possuir 5 ou mais caracteres.")
-                        .font(.caption1)
-                        .foregroundColor(.red)
-                } else if showErrorMessages && !isUsernameAvailable {
-                    Text("O nome de usuário já existe.")
-                        .font(.caption1)
-                        .foregroundColor(.red)
-                }
-                
-                if showErrorMessages && !isPasswordValid {
-                    Text("Sua senha deve possuir 5 ou mais caracteres.")
-                        .font(.caption1)
-                        .foregroundColor(.red)
-                }
-                
                 Spacer()
-                Button(action: {
+                
+                Button {
                     isPasswordValid = viewModelUser.password.count >= 5
                     isUsernameValid = viewModelUser.username.count >= 5
                     
@@ -116,14 +97,12 @@ struct CreateUserView: View {
                     }
                     
                     showErrorMessages = true
-                }) {
+                } label: {
                     Text("Criar conta")
                         .font(.title2)
-                        .foregroundColor(.fundoAmarelo)
+                        .foregroundColor(.backgroundOffWhite)
+                        .fontWeight(.semibold)
                         .padding()
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(10)
-                        .fontWeight(.heavy)
                 }
                 .disabled(viewModelUser.name.isEmpty || viewModelUser.username.isEmpty || viewModelUser.password.isEmpty)
                 .background(
@@ -134,14 +113,6 @@ struct CreateUserView: View {
                 )
                 .navigationDestination(isPresented: $navFeed) {
                     HomeView(viewModelLogin: viewModelLogin, viewModelPost: viewModelPost)
-                    //                FeedView(
-                    //                    viewModelLogin: viewModelLogin,
-                    //                    viewModelPost: viewModelPost,
-                    //                    onLogout: {
-                    //                        navFeed = true
-                    //
-                    //                    }
-                    //                )
                 }
                 
                 Spacer()

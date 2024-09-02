@@ -37,11 +37,9 @@ struct LoginView: View {
                             if (showErrorMessages && !isUsernameValid) {
                                 LoginTicket(placeholder: "Usuário", textfield: "wrongTextfield", field: $viewModelLogin.username)
                                 
-                                if showErrorMessages && !isUsernameValid {
-                                    Text("O usuário está incorreto")
-                                        .font(.caption1)
-                                        .foregroundColor(.red)
-                                }
+                                Text("O usuário está incorreto")
+                                    .font(.caption1)
+                                    .foregroundColor(.red)
                                 
                             } else {
                                 LoginTicket(placeholder: "Usuário", field: $viewModelLogin.username)
@@ -51,13 +49,10 @@ struct LoginView: View {
                                 LoginTicket(placeholder: "Senha", textfield: "wrongTextfield", field: $viewModelLogin.password, isSecure: true)
                                     .padding(.top, 5)
                                 
-                                if showErrorMessages && !isPasswordValid {
-                                    Text("A senha está incorreta")
-                                        .font(.caption1)
-                                        .foregroundColor(.red)
+                                Text("A senha está incorreta")
+                                    .font(.caption1)
+                                    .foregroundColor(.red)
                                         
-                                }
-                                
                             } else {
                                 LoginTicket(placeholder: "Senha", field: $viewModelLogin.password, isSecure: true)
                                     .padding(.top, 20)
@@ -95,7 +90,7 @@ struct LoginView: View {
                             
                             Text("Entrar")
                                 .font(.title2)
-                                .foregroundStyle(.backgroundOffWhite)
+                                .foregroundColor(.backgroundOffWhite)
                                 .fontWeight(.semibold)
                         }
                     }
@@ -111,7 +106,6 @@ struct LoginView: View {
                 }
                 .navigationDestination(isPresented: $navFeed) {
                     HomeView(viewModelLogin: viewModelLogin)
-//
                 }
             }
             .onAppear {
