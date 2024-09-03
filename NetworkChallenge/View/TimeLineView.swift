@@ -415,6 +415,12 @@ struct PostView: View {
                     .rotationEffect(.degrees(130.0))
             }
             
+            Text("\(post.user?.username ?? "Sharkberry"):")
+                .font(.title3, weight: .semibold)
+                .padding(.top, -70)
+                .padding(.leading, 10)
+                .foregroundColor(.verdeescuro)
+            
             Text(text)
                 .font(.body)
                 .padding(.leading, 80)
@@ -436,6 +442,7 @@ struct PostView: View {
                     
                     await viewModelPost.fetchPosts()
                 }
+                
             } label: {
                 Image(systemName: isLiked ? "heart.fill" : "heart")
                     .foregroundColor(.red)
@@ -444,7 +451,7 @@ struct PostView: View {
                     .padding(.leading, 330)
             }
             .frame(width: 100, height: 100)
-            .background(.red)
+//            .background(.red)
         }
         .onAppear {
             Task {
