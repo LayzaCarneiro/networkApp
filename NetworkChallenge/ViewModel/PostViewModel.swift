@@ -8,7 +8,12 @@
 import SwiftUI
 import Combine
 
-class PostViewModel: ObservableObject, Identifiable {
+class PostViewModel: ObservableObject, Identifiable, Equatable {
+    static func == (lhs: PostViewModel, rhs: PostViewModel) -> Bool {
+        //
+        return true
+    }
+    
     @Published var posts: [Post] = []
     @Published var errorMessage: String?
     

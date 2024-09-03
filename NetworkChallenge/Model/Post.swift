@@ -1,6 +1,6 @@
 import Foundation
 
-struct Post: Decodable, Identifiable {
+struct Post: Decodable, Identifiable, Equatable {
     let id: UUID
     let text: String
     let user_id: String

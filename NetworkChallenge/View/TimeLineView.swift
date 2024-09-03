@@ -30,15 +30,20 @@ struct TimeLineView: View {
             return viewModelPost.posts
         } else {
             return viewModelPost.posts.filter { post in
-                let postComunidade = comunidade(from: post.text)
+                let postComunidade = community(from: post.text)
                 return postComunidade == comunidadeSel
             }
         }
     }
     
-    func comunidade(from text: String) -> String {
+    func community(from text: String) -> String {
         let components = text.components(separatedBy: "!@#$%ˆ&*")
         return components.first ?? ""
+    }
+    
+    func extractedString(from text: String) -> String {
+        let components = text.components(separatedBy: "!@#$%ˆ&*")
+        return components[1]
     }
     
     var body: some View {
@@ -66,11 +71,11 @@ struct TimeLineView: View {
                                     Color("skyblue")
                                         .ignoresSafeArea()
                                     
-                                    SheetViewPost( textCount: textCount, viewModel: viewModel)
+                                    SheetViewPost( textCount: textCount, viewModel: viewModel, viewModelLogin: viewModelLogin, viewModelPost: viewModelPost)
                                 }
                             }
                             .presentationDetents([.height(250)])
-                            .presentationDragIndicator(.hidden)
+                            .presentationDragIndicator(.visible)
                             
                         }
                         
@@ -83,7 +88,7 @@ struct TimeLineView: View {
                                 .foregroundColor(.pink)
                         }
                         .scaledToFit()
-//                        .rotationEffect(.degrees(30.0))
+                        .rotationEffect(.degrees(30.0))
                         .sheet(isPresented: $showingSheetCharacter) {
                             ZStack{
                                 Color("skyblue")
@@ -91,7 +96,7 @@ struct TimeLineView: View {
                                 
                                 SheetViewCharacter(viewModel: viewModel, insetoSelecionado: $insetoSelecionado, avatarURL: avatarURL, viewModelUser: viewModelUser, viewModelLogin: viewModelLogin)
                                     .presentationDetents([.medium])
-                                    .presentationDragIndicator(.hidden)
+                                    .presentationDragIndicator(.visible)
                             }
                         }
                     }
@@ -99,10 +104,14 @@ struct TimeLineView: View {
                     .padding(.leading, 250)
                     
                     ScrollView {
-                        ForEach(viewModelPost.posts) { post in
-                            PostView(text: post.text, viewModel: viewModel, textCount: textCount, viewModelPost: viewModelPost, post: post, userToken: viewModelLogin.tokenLogin!, user: viewModelLogin.user, insetoSelecionado: $insetoSelecionado, avatarURL: avatarURL)
+                        ForEach(filteredPosts) { post in
+                            PostView(text: extractedString(from: post.text), viewModel: viewModel, textCount: textCount, viewModelPost: viewModelPost, post: post, userToken: viewModelLogin.tokenLogin!, user: viewModelLogin.user, insetoSelecionado: $insetoSelecionado, avatarURL: avatarURL)
                         }
                     }
+                }
+                .onChange(of: viewModelPost.posts) { _ in
+                    
+                    print("Posts updated")
                 }
                 .onAppear {
                     Task {
@@ -117,7 +126,7 @@ struct TimeLineView: View {
             }
             .onAppear {
                 if let avatarString = viewModelUser.user?.avatar, !avatarString.isEmpty {
-                    avatarURL = URL(string: "http://127.0.0.1:8080/\(avatarString)")
+                    avatarURL = URL(string: "\(API.baseURL)/\(avatarString)")
                 }
             }
         }
@@ -127,12 +136,15 @@ struct TimeLineView: View {
 
 struct SheetViewPost: View {
     @Environment(\.dismiss) var dismiss
-    @State private var characterLimit = 150
+    @State private var characterLimit = 120
     @ObservedObject var textCount: TextCount
     @ObservedObject var viewModel: CharacterViewModel
     
+    @StateObject var viewModelLogin = LoginViewModel()
+    @StateObject var viewModelPost = PostViewModel()
+    
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
                 
                 HStack {
@@ -148,6 +160,7 @@ struct SheetViewPost: View {
                             textCount.text = String(textCount.text.prefix(characterLimit))
                         }
                         .foregroundColor(.white)
+                        .font(.title3)
                 }
                 .padding(.leading, 20)
                 .padding(.trailing, 20)
@@ -166,13 +179,33 @@ struct SheetViewPost: View {
         
             .toolbar{
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Post") {
-                        //                        sendText(textCount.text)
+                    Button {
+                        Task {
+                            do {
+                                print("comunidade selecionada formigas")
+                                let postComunidade = "FORMIGAS!@#$%ˆ&*\(textCount.text)"
+                                let post = try await viewModelPost.createPost(
+                                    text: postComunidade,
+                                    with: viewModelLogin.tokenLogin ?? ""
+                                )
+                                print("post \(post)")
+                            } catch {
+                                print("n foi: \(error.localizedDescription)")
+                            }
+                            await viewModelPost.fetchPosts()
+                            dismiss()
+                        }
+                    } label: {
+                        Text("Post")
+                            .font(.title3)
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button {
                         dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .font(.title3)
                     }
                 }
             }
@@ -183,7 +216,7 @@ struct SheetViewPost: View {
 struct SheetViewCharacter: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: CharacterViewModel
-
+    
     @Binding var insetoSelecionado: String
     @State var avatarURL: URL?
     @StateObject var viewModelUser = UserViewModel()
@@ -193,39 +226,38 @@ struct SheetViewCharacter: View {
     
     var body: some View {
         VStack {
-            Text("Select character")
-                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+            Text("Selecione seu avatar")
+                .font(.title2, weight: .bold)
                 .foregroundStyle(.white)
             
             VStack {
                 ForEach(0..<avatarInsetos.count) { index in
-                    Image(avatarInsetos[index])
-                    .resizable()
-                    .frame(width: 60, height: 60)
-                    .onTapGesture {
-                        insetoSelecionado = avatarInsetos[index]
-                        Task {
-                            do {
-                                if let avatarData = UIImage(named: avatarInsetos[index])?.pngData() {
-                                    try await viewModelUser.patchAvatar(with: viewModelLogin.tokenLogin!, with: avatarData)
-                                    
-                                    DispatchQueue.main.async {
-                                        viewModelLogin.user?.avatar = avatarInsetos[index]
-                                        avatarURL = URL(string: "http://127.0.0.1:8080/\(avatarInsetos[index])")
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(avatarInsetos[index])
+                            .resizable()
+                            .frame(width: 50, height: 75)
+                            .onTapGesture {
+                                insetoSelecionado = avatarInsetos[index]
+                                Task {
+                                    do {
+                                        if let avatarData = UIImage(named: avatarInsetos[index])?.pngData() {
+                                            try await viewModelUser.patchAvatar(with: viewModelLogin.tokenLogin!, with: avatarData)
+                                            
+                                            DispatchQueue.main.async {
+                                                viewModelLogin.user?.avatar = avatarInsetos[index]
+                                                avatarURL = URL(string: "\(API.baseURL)/\(avatarInsetos[index])")
+                                            }
+                                        }
+                                    } catch {
+                                        print("erro avatar: \(error)")
                                     }
                                 }
-                            } catch {
-                                print("erro avatar: \(error)")
                             }
-                        }
                     }
-                    
                 }
             }
-            Button("Press to dismiss") {
-                dismiss()
-            }
-            .foregroundColor(.white)
         }
     }
 }
@@ -262,13 +294,14 @@ struct PostView: View {
                 .padding(.bottom, -400)
             
             HStack {
-                if isMyPost { // se for autoral deleta se for dos outros reporta
+                if !isMyPost { // se for autoral deleta se for dos outros reporta
                     Button(action: {
                         // integracao del post
                     }) {
                         Image(systemName: "trash")
                             .foregroundColor(.red)
                     }
+                    .padding(.leading, 5)
                 } else {
                     Button(action: {
                         self.report.toggle()
@@ -276,6 +309,8 @@ struct PostView: View {
                         Image(systemName: report ? "exclamationmark.bubble.fill" : "exclamationmark.bubble")
                             .foregroundColor(.yellow)
                     }
+                    .padding(.leading, 15)
+                    .padding(.top, 8)
                 }
                 
                 Image("whitecloud2")
@@ -285,7 +320,7 @@ struct PostView: View {
                     .padding(.top, 50)
                     .padding(.leading, 50)
                     .foregroundColor(.white)
-                    .opacity(0.6)
+                    .opacity(0.7)
             }
             .frame(width: 300)
             
@@ -293,24 +328,24 @@ struct PostView: View {
                 AsyncImage(url: avatarURL) { image in
                     image
                         .resizable()
-                        .frame(width: 60, height: 60)
+                        .frame(width: 45, height: 90)
+                        .padding(.leading)
+                        .padding(.top, 200)
+                        .rotationEffect(.degrees(130.0))
                 } placeholder: {
                     if !insetoSelecionado.isEmpty {
                         Image(insetoSelecionado)
                             .resizable()
-                            .frame(width: 60, height: 60)
-                    } else {
+                            .frame(width: 45, height: 90)
+                            .padding(.leading)
+                            .padding(.top, 200)
+                            .rotationEffect(.degrees(130.0))                    } else {
                         ProgressView()
                             .frame(width: 60, height: 60)
-                    }                      }
+                    }
+                }
             } else {
                 Image("insect_1")
-                    .resizable()
-                    .frame(width: 60, height: 60)
-            }
-            
-            if let character = viewModel.selectedCharacter {
-                Image(character)
                     .resizable()
                     .frame(width: 45, height: 90)
                     .padding(.leading)
@@ -321,10 +356,8 @@ struct PostView: View {
             Text(text)
                 .font(.body)
                 .padding(.leading, 80)
-            //                .padding(.trailing, 70)
                 .frame(width: 300, height: 330)
                 .padding(.top, 40)
-            //                .padding(.leading, 80)
             
             Button {
                 Task {
@@ -345,8 +378,8 @@ struct PostView: View {
                 Image(systemName: isLiked ? "heart.fill" : "heart")
                     .foregroundColor(.red)
                     .fontWeight(.bold)
-                    .padding(.top, 150)
-                    .padding(.leading, 320)
+                    .padding(.top, 140)
+                    .padding(.leading, 330)
             }
             
         }
@@ -364,10 +397,10 @@ struct PostView: View {
 }
 
 class TextCount: ObservableObject {
-    @Published var counted = "0/150"
+    @Published var counted = "0/120"
     @Published var text = "" {
         didSet {
-            counted = String("\(text.count)/150")
+            counted = String("\(text.count)/120")
         }
     }
 }
@@ -378,16 +411,10 @@ struct TextDisplayView: View {
     var body: some View {
         Text(textCount.text.isEmpty ? "" : textCount.text)
             .padding()
+            .font(.body)
     }
 }
 
 #Preview {
     TimeLineView()
 }
-
-
-//            TextDisplayView(textCount: textCount)
-//                .frame(width: 300, height: 330)
-//                .padding(.top, 40)
-//                .padding(.leading, 80)
-//.foregroundColor(.white)

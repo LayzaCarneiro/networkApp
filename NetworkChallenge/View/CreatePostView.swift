@@ -68,4 +68,3 @@ struct CreatePostView: View {
         .navigationTitle("criar post")
     }
 }
-
