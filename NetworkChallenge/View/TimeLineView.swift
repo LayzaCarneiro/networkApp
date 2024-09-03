@@ -13,6 +13,7 @@ struct TimeLineView: View {
     @State private var isLiked = false
     @StateObject private var viewModel = CharacterViewModel()
     @StateObject var textCount = TextCount()
+    @StateObject var username = UsernameCount()
     
     var body: some View {
         NavigationStack {
@@ -78,7 +79,7 @@ struct TimeLineView: View {
                     .padding(.leading, 250)
                     //.padding(.bottom, 0)
                     ScrollView{
-                        PostView( viewModel: viewModel, textCount: textCount)
+                        PostView( viewModel: viewModel, textCount: textCount, username: username)
                     }
                 }
                 
@@ -209,8 +210,10 @@ struct PostView: View {
     @State private var isLiked = false
     @State private var report = false
     @State private var isMyPost = false
+    //@State private var nick = "@besouro"
     @ObservedObject var viewModel: CharacterViewModel
     @ObservedObject var textCount: TextCount
+    @ObservedObject var username: UsernameCount
     
     //como resolver os botões que estão se impedindo
     var body: some View{
@@ -237,9 +240,6 @@ struct PostView: View {
                     }
                 }
             
-        
-            
-                
                 Image("whitecloud2")
                     .resizable()
                     .scaledToFill()
@@ -251,19 +251,21 @@ struct PostView: View {
         }
             .frame(width: 300)
             
+            HStack {
                 if let character = viewModel.selectedCharacter {
                     Image(character)
                         .resizable()
                         .frame(width: 45, height: 90)
-                        .padding(.leading)
-                        .padding(.top, 200)
-                        .rotationEffect(.degrees(130.0))
                 }
+                UsernameDisplayView(usernameCount:username)
+            }
+            .padding(.trailing, 20)
+            .padding(.bottom, 150)
                 
                 TextDisplayView(textCount: textCount)
                     .frame(width: 300, height: 330)
                     .padding(.top, 40)
-                    .padding(.leading, 80)
+                    .padding(.leading, 50)
                 //.foregroundColor(.white)
                 
                 Button {
@@ -299,6 +301,26 @@ struct TextDisplayView: View {
             .padding()
     }
 }
+
+class UsernameCount: ObservableObject {
+    @Published var username = "" {
+        didSet {
+            if username.count > 7 {
+                username = String(username.prefix(7))
+            }
+        }
+    }
+}
+
+struct UsernameDisplayView: View {
+    
+    @ObservedObject var usernameCount: UsernameCount
+    
+    var body: some View {
+        Text(usernameCount.username)
+    }
+}
+
 
 func sendText(_ text: String) {
     print("Texto enviado: \(text)")
