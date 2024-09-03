@@ -25,13 +25,12 @@ struct LoginView: View {
                 
                 VStack {
                     
-                    Text("Villary")
-                        .font(.largeTitle, weight: .semibold)
-                        .foregroundColor(.brownPixel)
-                    
-                    Text("Login")
-                        .font(.title3, weight: .semibold)
-                        .foregroundColor(.brownPixel)
+                    Image("AppLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300)
+                        .padding(.top, -70)
+
                     
                     ZStack {
                         Image("loginTicket")
@@ -70,6 +69,7 @@ struct LoginView: View {
                         }
                         .padding(.trailing, 80)
                     }
+                    .padding(.bottom, 15)
                     
                     Button {
                         
