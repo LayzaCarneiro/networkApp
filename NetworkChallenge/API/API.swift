@@ -9,8 +9,8 @@ import Foundation
 
 enum API {
     
-//    static let baseURL: URL = URL(string: "http://10.45.53.186:8080")!
-    static let baseURL: URL = URL(string: "http://127.0.0.1:8080")!
+    static let baseURL: URL = URL(string: "http://10.45.53.186:8080")!
+//    static let baseURL: URL = URL(string: "http://127.0.0.1:8080")!
 
     
     static func searchPosts() async throws -> [Post] {

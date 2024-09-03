@@ -62,7 +62,6 @@
 		AE26E1932C7F4A80005DA1E4 /* EditFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFileView.swift; sourceTree = "<group>"; };
 		AE26E1952C7F4AB0005DA1E4 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChallengeApp.swift; sourceTree = "<group>"; };
-		AE26E1992C7F4BEF005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Downloads/Arquivo/RedeSocial/Assets.xcassets; sourceTree = "<group>"; };
 		AE26E1A12C7F6371005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE3D1C5B2C83F113005E3E70 /* PixelifySans-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PixelifySans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		AE7B9CCE2C809409000F6F57 /* LoginTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTicket.swift; sourceTree = "<group>"; };
@@ -209,7 +208,6 @@
 		AE9C48EE2C775FFA002170A7 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				AE26E1992C7F4BEF005DA1E4 /* Assets.xcassets */,
 				AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
