@@ -145,71 +145,73 @@ struct SheetViewPost: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                
-                HStack {
-                    if let character = viewModel.selectedCharacter {
-                        Image(character)
-                            .resizable()
-                            .frame(width: 30, height:60)
-                    }
+            ScrollView(.vertical, showsIndicators: false) {
+                ZStack {
                     
-                    TextField("O que está acontecendo?", text: $textCount.text, axis: .vertical)
-                        .multilineTextAlignment(.leading)
-                        .onChange( of: textCount.text) { _ in
-                            textCount.text = String(textCount.text.prefix(characterLimit))
+                    HStack {
+                        if let character = viewModel.selectedCharacter {
+                            Image(character)
+                                .resizable()
+                                .frame(width: 30, height:60)
                         }
-                        .foregroundColor(.white)
-                        .font(.title3)
-                }
-                .padding(.leading, 20)
-                .padding(.trailing, 20)
-                .padding(.bottom, 80)
-                Text("\(textCount.counted)")
-                    .foregroundColor(.white)
-                    .padding(.top, 200)
-                    .padding(.leading, 250)
-                
-            }
-            .overlay( RoundedRectangle(cornerRadius: 14) .stroke(.white, lineWidth: 2))
-            .padding()
-        }
-        
-        Spacer()
-        
-            .toolbar{
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        Task {
-                            do {
-                                print("comunidade selecionada formigas")
-                                let postComunidade = "FORMIGAS!@#$%ˆ&*\(textCount.text)"
-                                let post = try await viewModelPost.createPost(
-                                    text: postComunidade,
-                                    with: viewModelLogin.tokenLogin ?? ""
-                                )
-                                print("post \(post)")
-                            } catch {
-                                print("n foi: \(error.localizedDescription)")
+                        
+                        TextField("O que está acontecendo?", text: $textCount.text, axis: .vertical)
+                            .multilineTextAlignment(.leading)
+                            .onChange( of: textCount.text) { _ in
+                                textCount.text = String(textCount.text.prefix(characterLimit))
                             }
-                            await viewModelPost.fetchPosts()
-                            dismiss()
-                        }
-                    } label: {
-                        Text("Post")
+                            .foregroundColor(.white)
                             .font(.title3)
                     }
+                    .padding(.leading, 20)
+                    .padding(.trailing, 20)
+                    .padding(.bottom, 80)
+                    Text("\(textCount.counted)")
+                        .foregroundColor(.white)
+                        .padding(.top, 200)
+                        .padding(.leading, 250)
+                    
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                            .font(.title3)
-                    }
-                }
+                .overlay( RoundedRectangle(cornerRadius: 14) .stroke(.white, lineWidth: 2))
+                .padding()
             }
-            .foregroundColor(.white)
+            
+            Spacer()
+            
+                .toolbar{
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button {
+                            Task {
+                                do {
+                                    print("comunidade selecionada formigas")
+                                    let postComunidade = "FORMIGAS!@#$%ˆ&*\(textCount.text)"
+                                    let post = try await viewModelPost.createPost(
+                                        text: postComunidade,
+                                        with: viewModelLogin.tokenLogin ?? ""
+                                    )
+                                    print("post \(post)")
+                                } catch {
+                                    print("n foi: \(error.localizedDescription)")
+                                }
+                                await viewModelPost.fetchPosts()
+                                dismiss()
+                            }
+                        } label: {
+                            Text("Post")
+                                .font(.title3)
+                        }
+                    }
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Cancel")
+                                .font(.title3)
+                        }
+                    }
+                }
+                .foregroundColor(.white)
+        }
     }
 }
 
