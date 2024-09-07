@@ -9,17 +9,17 @@ struct HomeView: View {
     @State var comunidadeSel: String = ""
 
     let comunidades: [String: String] = [
-        "Somos humanos. Não robôs.": "fundo",
-        "Vida de inseto": "fundo"
+        "Somos humanos. Não robôs.": "robo",
+        "Vida de inseto": "inseto"
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Image(isAceso ? "backgroundAceso" : "background")
                     .resizable()
-                    .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
+                
                 VStack {
                 }
                 .background(Image("")
@@ -36,18 +36,8 @@ struct HomeView: View {
                             HStack(spacing: 0) {
                                 ForEach(comunidades.keys.sorted(), id: \.self) { key in
                                     
-                                    if key != comunidades.keys.sorted().first {
-                                        Image("chevron")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 20)
-                                            .padding(.leading, 15)
-                                            .padding(.trailing, -40)
-                                            .allowsHitTesting(false)
-                                    }
-                                    
                                     VStack {
-                                        NavigationLink(destination: TimeLineView()) {
+                                        NavigationLink(destination: TimeLineView(viewModelLogin: viewModelLogin)) {
                                             VStack {
                                                 Image("Frame")
                                                     .resizable()
@@ -62,7 +52,7 @@ struct HomeView: View {
                                                     Image("FrameName")
                                                         .resizable()
                                                         .scaledToFit()
-                                                        .frame(width: 300, height: 100)
+                                                        .frame(width: 330, height: 120)
                                                     Text(key)
                                                         .font(.body)
                                                         .foregroundColor(.black)
@@ -73,14 +63,7 @@ struct HomeView: View {
                                             .padding()
                                             .containerRelativeFrame(.horizontal)
                                         }
-                                    }
-                                    if key != comunidades.keys.sorted().last {
-                                        Image("chevron")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 20)
-                                            .padding(.leading, -40)
-                                            .allowsHitTesting(false)
+                                        .disabled(key == "Somos humanos. Não robôs.")
                                     }
                                 }
                             }
@@ -95,27 +78,34 @@ struct HomeView: View {
                 
                 VStack {
                     HStack {
-                        Button(action: {
+                        Button {
                             print("Botão esquerdo pressionado")
-                        }) {
+                        } label: {
                             Image("SearchButton")
                                 .resizable()
-                                .frame(width: 100, height: 80)
-                                .padding()
+                                .frame(width: 60, height: 55)
+                                .padding(.leading, 25)
                         }
                         .buttonStyle(PlainButtonStyle())
                         
                         Spacer()
                         
-                        Button(action: {
-                            print("Botão direito pressionado")
-                        }) {
+                        Button {
+                            Task {
+                                try await viewModelLogin.logout(with: viewModelLogin.tokenLogin!)
+                                navFeed = true
+                                
+                            }
+                        } label: {
                             Image("ConfigButton")
                                 .resizable()
-                                .frame(width: 100, height: 80)
-                                .padding()
+                                .frame(width: 60, height: 55)
+                                .padding(.trailing, 25)
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .navigationDestination(isPresented: $navFeed) {
+                            LoginView()
+                        }
                     }
                     Spacer()
                 }

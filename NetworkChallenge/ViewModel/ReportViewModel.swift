@@ -30,7 +30,7 @@ class ReportViewModel: ObservableObject {
     
     func fetchReports(postID: UUID) async {
             do {
-                let reports = try await API.searchReports(on: baseURL, postID: postID)
+                let reports = try await API.searchReports( postID: postID)
                 DispatchQueue.main.async {
                     self.reports = reports
                 }

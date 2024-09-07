@@ -8,15 +8,18 @@
 import SwiftUI
 import Combine
 
-class PostViewModel: ObservableObject, Identifiable {
+class PostViewModel: ObservableObject, Identifiable, Equatable {
+    static func == (lhs: PostViewModel, rhs: PostViewModel) -> Bool {
+        //
+        return true
+    }
+    
     @Published var posts: [Post] = []
     @Published var errorMessage: String?
     
-    let baseURL = URL(string: "http://127.0.0.1:8080")!
-    
     func fetchPosts() async {
         do {
-            let posts = try await API.searchPosts(on: baseURL)
+            let posts = try await API.searchPosts()
             DispatchQueue.main.async {
                 self.posts = posts
             }
@@ -41,8 +44,8 @@ class PostViewModel: ObservableObject, Identifiable {
         }
     }
     
-//    func deletar(on baseURL: URL, postID: UUID) async throws {
-//        let url = baseURL.appending(path: "posts/\(postID.uuidString)")
+//    func deletar(postID: UUID) async throws {
+//        let url = API.baseURL.appending(path: "posts/\(postID.uuidString)")
 //        var request = URLRequest(url: url)
 //        request.httpMethod = "DELETE"
 //        request.allHTTPHeaderFields = [
@@ -56,7 +59,7 @@ class PostViewModel: ObservableObject, Identifiable {
 //            let post = posts[index]
 //            Task {
 //                do {
-//                    try await deletar(on: baseURL, postID: post.id)
+//                    try await deletar( postID: post.id)
 //                    posts.remove(at: index)
 //                } catch {
 //                    errorMessage = "erro de deletar: \(error.localizedDescription)"
@@ -65,8 +68,8 @@ class PostViewModel: ObservableObject, Identifiable {
 //        }
 //    }
     
-    func createPost(on baseURL: URL, text: String, with token: String) async throws -> Post {
-        let url = baseURL.appendingPathComponent("posts")
+    func createPost(text: String, with token: String) async throws -> Post {
+        let url = API.baseURL.appendingPathComponent("posts")
 
         let create = Post.Create(text: text)
         
@@ -87,8 +90,8 @@ class PostViewModel: ObservableObject, Identifiable {
         return post
     }
     
-    func likePost(on baseURL: URL, postId: UUID, with token: String) async throws {
-        let url = baseURL.appending(path: "likes/\(postId)")
+    func likePost(postId: UUID, with token: String) async throws {
+        let url = API.baseURL.appending(path: "likes/\(postId)")
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -103,8 +106,8 @@ class PostViewModel: ObservableObject, Identifiable {
         print("Like")
     }
     
-    func dislikePost(on baseURL: URL, postId: UUID, with token: String) async throws {
-        let url = baseURL.appending(path: "likes/\(postId)")
+    func dislikePost(postId: UUID, with token: String) async throws {
+        let url = API.baseURL.appending(path: "likes/\(postId)")
 
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -119,8 +122,8 @@ class PostViewModel: ObservableObject, Identifiable {
         print("Dislike")
     }
 
-    func postLikingUsers(on baseURL: URL, postId: UUID, with token: String) async throws -> [User] {
-        let url = baseURL.appending(path: "likes/liking_users/\(postId)")
+    func postLikingUsers(postId: UUID, with token: String) async throws -> [User] {
+        let url = API.baseURL.appending(path: "likes/liking_users/\(postId)")
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

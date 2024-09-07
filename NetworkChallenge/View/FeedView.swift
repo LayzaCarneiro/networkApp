@@ -30,7 +30,7 @@ struct FeedView: View {
             let post = viewModelPost.posts[index]
             Task {
                 do {
-                    try await reportPost(on: viewModelLogin.baseURL, with: viewModelLogin.tokenLogin ?? "", postID: post.id, reason: "Motivo")
+                    try await reportPost(with: viewModelLogin.tokenLogin ?? "", postID: post.id, reason: "Motivo")
                 } catch {
                     viewModelPost.errorMessage = "Erro ao reportar: \(error.localizedDescription)"
                 }
@@ -38,8 +38,8 @@ struct FeedView: View {
         }
     }
 
-    func reportPost(on baseURL: URL, with token: String, postID: UUID, reason: String) async throws {
-        let url = baseURL.appendingPathComponent("reports/\(postID)")
+    func reportPost(with token: String, postID: UUID, reason: String) async throws {
+        let url = API.baseURL.appendingPathComponent("reports/\(postID)")
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -51,8 +51,8 @@ struct FeedView: View {
         print("Post \(postID) reportado")
     }
 
-    func deletar(on baseURL: URL, postID: UUID) async throws {
-        let url = baseURL.appendingPathComponent("posts/\(postID.uuidString)")
+    func deletar(postID: UUID) async throws {
+        let url = API.baseURL.appendingPathComponent("posts/\(postID.uuidString)")
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.allHTTPHeaderFields = [
@@ -97,7 +97,7 @@ struct FeedView: View {
                     Task {
                         do {
                             let avatar = UIImage(named: "op1")!.pngData()
-                            try await viewModelUser.patchAvatar(with: viewModelLogin.tokenLogin!, with: avatar!, on: viewModelUser.baseURL)
+                            try await viewModelUser.patchAvatar(with: viewModelLogin.tokenLogin!, with: avatar!)
                         } catch {
                             print("erro: \(error)")
                         }
@@ -193,7 +193,7 @@ struct FeedView: View {
                                                         
                                                         Task {
                                                             do {
-                                                                try await deletar(on: viewModelLogin.baseURL, postID: post.id)
+                                                                try await deletar(postID: post.id)
                                                             } catch {
                                                                 viewModelPost.errorMessage = "Erro ao reportar: \(error.localizedDescription)"
                                                             }

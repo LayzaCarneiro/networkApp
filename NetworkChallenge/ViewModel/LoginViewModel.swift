@@ -14,6 +14,7 @@ class LoginViewModel: ObservableObject {
     
     @Published var username: String = ""
     @Published var password: String = ""
+    @Published var avatar: String = ""
     
     @Published var tokenLogin: String?
     
@@ -31,8 +32,8 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-    func login(on baseURL: URL) async throws -> String {
-        let url = baseURL.appending(path: "users/login")
+    func login() async throws -> String {
+        let url = API.baseURL.appending(path: "users/login")
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -62,8 +63,8 @@ class LoginViewModel: ObservableObject {
         return session.token
     }
     
-    func me(on baseURL: URL, with token: String) async throws -> User {
-        let url = baseURL.appending(path: "users/me")
+    func me(with token: String) async throws -> User {
+        let url = API.baseURL.appending(path: "users/me")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -83,8 +84,8 @@ class LoginViewModel: ObservableObject {
         
     }
     
-        func logout(on baseURL: URL, with token: String) async throws {
-        let url = baseURL.appending(path: "users/logout")
+        func logout(with token: String) async throws {
+        let url = API.baseURL.appending(path: "users/logout")
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
