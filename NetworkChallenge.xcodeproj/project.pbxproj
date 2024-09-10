@@ -32,6 +32,10 @@
 		AE3D1C5C2C83F113005E3E70 /* PixelifySans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE3D1C5B2C83F113005E3E70 /* PixelifySans-VariableFont_wght.ttf */; };
 		AE5405712C89DD43005FADB6 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5405702C89DD43005FADB6 /* SplashView.swift */; };
 		AE7B9CCF2C809409000F6F57 /* LoginTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B9CCE2C809409000F6F57 /* LoginTicket.swift */; };
+		AE99DC8E2C908696003A9A47 /* SheetViewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE99DC8D2C908696003A9A47 /* SheetViewPost.swift */; };
+		AE99DC902C9086B3003A9A47 /* SheetViewCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE99DC8F2C9086B3003A9A47 /* SheetViewCharacter.swift */; };
+		AE99DC922C9086C7003A9A47 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE99DC912C9086C7003A9A47 /* PostView.swift */; };
+		AE99DC942C908713003A9A47 /* TextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE99DC932C908713003A9A47 /* TextDisplayView.swift */; };
 		AE9C48EB2C775FF9002170A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9C48EA2C775FF9002170A7 /* ContentView.swift */; };
 		AE9C48F02C775FFA002170A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */; };
 		AEE5A0D32C822B090027B4A3 /* FontCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE5A0D22C822B090027B4A3 /* FontCustomization.swift */; };
@@ -68,6 +72,10 @@
 		AE3D1C5B2C83F113005E3E70 /* PixelifySans-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PixelifySans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		AE5405702C89DD43005FADB6 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		AE7B9CCE2C809409000F6F57 /* LoginTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTicket.swift; sourceTree = "<group>"; };
+		AE99DC8D2C908696003A9A47 /* SheetViewPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewPost.swift; sourceTree = "<group>"; };
+		AE99DC8F2C9086B3003A9A47 /* SheetViewCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewCharacter.swift; sourceTree = "<group>"; };
+		AE99DC912C9086C7003A9A47 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		AE99DC932C908713003A9A47 /* TextDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDisplayView.swift; sourceTree = "<group>"; };
 		AE9C48E52C775FF9002170A7 /* NetworkChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9C48EA2C775FF9002170A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AE9C48EF2C775FFA002170A7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -170,6 +178,10 @@
 			isa = PBXGroup;
 			children = (
 				AE7B9CCE2C809409000F6F57 /* LoginTicket.swift */,
+				AE99DC8D2C908696003A9A47 /* SheetViewPost.swift */,
+				AE99DC8F2C9086B3003A9A47 /* SheetViewCharacter.swift */,
+				AE99DC912C9086C7003A9A47 /* PostView.swift */,
+				AE99DC932C908713003A9A47 /* TextDisplayView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -302,8 +314,11 @@
 				AE26E1982C7F4AEC005DA1E4 /* NetworkChallengeApp.swift in Sources */,
 				AE26E1922C7F4A43005DA1E4 /* ReportsView.swift in Sources */,
 				AE0D2A642C7CBCF7007DF9D1 /* User+Create.swift in Sources */,
+				AE99DC902C9086B3003A9A47 /* SheetViewCharacter.swift in Sources */,
 				FFB2FBA82C7F97490082D93C /* CreateUserView.swift in Sources */,
 				FFB2FB9D2C7F66120082D93C /* FeedView.swift in Sources */,
+				AE99DC922C9086C7003A9A47 /* PostView.swift in Sources */,
+				AE99DC942C908713003A9A47 /* TextDisplayView.swift in Sources */,
 				AEE5A0D32C822B090027B4A3 /* FontCustomization.swift in Sources */,
 				AE0958E02C81E91800A22A43 /* LikesView.swift in Sources */,
 				AE2A4B042C90806000B8D656 /* LogoutView.swift in Sources */,
@@ -317,6 +332,7 @@
 				AE26E1962C7F4AB0005DA1E4 /* ReportViewModel.swift in Sources */,
 				AE19CA222C77688C00154034 /* APIError.swift in Sources */,
 				AE19CA182C77634700154034 /* API.swift in Sources */,
+				AE99DC8E2C908696003A9A47 /* SheetViewPost.swift in Sources */,
 				AE26E18E2C7F4A1A005DA1E4 /* TestView.swift in Sources */,
 				AE26E1942C7F4A80005DA1E4 /* EditFileView.swift in Sources */,
 				AE26E18C2C7F49DD005DA1E4 /* Report+Create.swift in Sources */,
