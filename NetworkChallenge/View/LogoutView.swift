@@ -1,53 +1,43 @@
+//
+//  LogoutView.swift
+//  NetworkChallenge
+//
+//  Created by Layza Maria Rodrigues Carneiro on 10/09/24.
+//
+
 import SwiftUI
 
 struct LogoutView: View {
-
-    @ObservedObject private var viewModel = LoginViewModel()
-
+    
+    @ObservedObject var viewModelLogin: LoginViewModel
+    @State var navFeed = false
+    
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-
-                TextField("usuario", text: $viewModel.username)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                TextField("senha", text: $viewModel.password)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-
-                if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                }
-                Button(action: {
-                    Task {
-                        try await viewModel.login()
+            ZStack {
+                Color.backgroundOffWhite.ignoresSafeArea()
+                
+                VStack {
+                    
+                    Button {
+                        Task {
+                            try await viewModelLogin.logout(with: viewModelLogin.tokenLogin!)
+                            navFeed = true
+                        }
+                    } label: {
+                        Text("Logout")
+                            .font(.title1, weight: .semibold)
                     }
-                }) {
-                    Text("Login")
-                }
-                .padding()
-
-
-                Button(action: {
-                    Task {
-                        try await viewModel.logout(with: viewModel.tokenLogin!)
+                    .navigationDestination(isPresented: $navFeed) {
+                        LoginView()
                     }
-                }) {
-                    Text("Logout")
-                }
-                .padding()
-
-                if let user = viewModel.user {
-                    Text("usuario \(user.username)")
-                        .font(.title)
-                        .padding()
+                    
                 }
             }
         }
     }
 }
 
-#Preview {
-    LogoutView()
-}
+//#Preview {
+//    LogoutVieww()
+//}
