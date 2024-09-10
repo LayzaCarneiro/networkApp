@@ -24,6 +24,7 @@
 		AE26E1962C7F4AB0005DA1E4 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE26E1952C7F4AB0005DA1E4 /* ReportViewModel.swift */; };
 		AE26E1982C7F4AEC005DA1E4 /* NetworkChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */; };
 		AE26E1A22C7F6371005DA1E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE26E1A12C7F6371005DA1E4 /* Assets.xcassets */; };
+		AE2A4B042C90806000B8D656 /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2A4B032C90806000B8D656 /* LogoutView.swift */; };
 		AE3D1C572C83F0C2005E3E70 /* PixelifySans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEE5A0CE2C8229B70027B4A3 /* PixelifySans-Regular.ttf */; };
 		AE3D1C582C83F0EE005E3E70 /* PixelifySans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEE5A0CD2C8229B70027B4A3 /* PixelifySans-Bold.ttf */; };
 		AE3D1C592C83F0F7005E3E70 /* PixelifySans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEE5A0CF2C8229B70027B4A3 /* PixelifySans-Medium.ttf */; };
@@ -39,7 +40,6 @@
 		FEE53D3E2C7E086A005A0A15 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEE53D3D2C7E086A005A0A15 /* Colors.xcassets */; };
 		FFB2FB9C2C7F66120082D93C /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FB972C7F66120082D93C /* CreatePostView.swift */; };
 		FFB2FB9D2C7F66120082D93C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FB982C7F66120082D93C /* FeedView.swift */; };
-		FFB2FB9E2C7F66120082D93C /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FB992C7F66120082D93C /* LogoutView.swift */; };
 		FFB2FBA02C7F66120082D93C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FB9B2C7F66120082D93C /* LoginView.swift */; };
 		FFB2FBA32C7F663B0082D93C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FBA12C7F663B0082D93C /* LoginViewModel.swift */; };
 		FFB2FBA42C7F663B0082D93C /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB2FBA22C7F663B0082D93C /* PostViewModel.swift */; };
@@ -64,6 +64,7 @@
 		AE26E1952C7F4AB0005DA1E4 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		AE26E1972C7F4AEC005DA1E4 /* NetworkChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChallengeApp.swift; sourceTree = "<group>"; };
 		AE26E1A12C7F6371005DA1E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AE2A4B032C90806000B8D656 /* LogoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutView.swift; sourceTree = "<group>"; };
 		AE3D1C5B2C83F113005E3E70 /* PixelifySans-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PixelifySans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		AE5405702C89DD43005FADB6 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		AE7B9CCE2C809409000F6F57 /* LoginTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTicket.swift; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		FEE53D3D2C7E086A005A0A15 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FFB2FB972C7F66120082D93C /* CreatePostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
 		FFB2FB982C7F66120082D93C /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
-		FFB2FB992C7F66120082D93C /* LogoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutView.swift; sourceTree = "<group>"; };
 		FFB2FB9B2C7F66120082D93C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FFB2FBA12C7F663B0082D93C /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		FFB2FBA22C7F663B0082D93C /* PostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
@@ -146,10 +146,10 @@
 				FFB2FBA72C7F97490082D93C /* CreateUserView.swift */,
 				FFB2FB982C7F66120082D93C /* FeedView.swift */,
 				FFB2FB9B2C7F66120082D93C /* LoginView.swift */,
-				FFB2FB992C7F66120082D93C /* LogoutView.swift */,
 				AE26E1912C7F4A43005DA1E4 /* ReportsView.swift */,
 				AE0958DF2C81E91800A22A43 /* LikesView.swift */,
 				AE5405702C89DD43005FADB6 /* SplashView.swift */,
+				AE2A4B032C90806000B8D656 /* LogoutView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -301,12 +301,12 @@
 				FE7B72672C7E02A30025C82D /* HomeView.swift in Sources */,
 				AE26E1982C7F4AEC005DA1E4 /* NetworkChallengeApp.swift in Sources */,
 				AE26E1922C7F4A43005DA1E4 /* ReportsView.swift in Sources */,
-				FFB2FB9E2C7F66120082D93C /* LogoutView.swift in Sources */,
 				AE0D2A642C7CBCF7007DF9D1 /* User+Create.swift in Sources */,
 				FFB2FBA82C7F97490082D93C /* CreateUserView.swift in Sources */,
 				FFB2FB9D2C7F66120082D93C /* FeedView.swift in Sources */,
 				AEE5A0D32C822B090027B4A3 /* FontCustomization.swift in Sources */,
 				AE0958E02C81E91800A22A43 /* LikesView.swift in Sources */,
+				AE2A4B042C90806000B8D656 /* LogoutView.swift in Sources */,
 				FFB2FBA32C7F663B0082D93C /* LoginViewModel.swift in Sources */,
 				AE0D2A682C7CBD12007DF9D1 /* Post.swift in Sources */,
 				FFB2FB9C2C7F66120082D93C /* CreatePostView.swift in Sources */,

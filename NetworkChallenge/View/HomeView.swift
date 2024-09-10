@@ -4,7 +4,7 @@ struct HomeView: View {
     @State var isAceso: Bool = false
     @ObservedObject var viewModelLogin: LoginViewModel
     @StateObject var viewModelPost = PostViewModel()
-    @State var navFeed = false
+    @State var navLogout = false
     
     @State var comunidadeSel: String = ""
 
@@ -90,22 +90,13 @@ struct HomeView: View {
                         
                         Spacer()
                         
-                        Button {
-                            Task {
-                                try await viewModelLogin.logout(with: viewModelLogin.tokenLogin!)
-                                navFeed = true
-                                
-                            }
-                        } label: {
+                        NavigationLink(destination: LogoutView(viewModelLogin: viewModelLogin)) {
                             Image("ConfigButton")
                                 .resizable()
                                 .frame(width: 60, height: 55)
                                 .padding(.trailing, 25)
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        .navigationDestination(isPresented: $navFeed) {
-                            LoginView()
-                        }
+                        
                     }
                     Spacer()
                 }
