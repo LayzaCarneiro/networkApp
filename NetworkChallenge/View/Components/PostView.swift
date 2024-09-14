@@ -49,24 +49,10 @@ struct PostView: View {
         
     }
 
-
-    func reportPost(with token: String, postID: UUID, reason: String) async throws {
-        let url = API.baseURL.appendingPathComponent("reports/\(postID)")
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = try JSONEncoder().encode(reason)
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        _ = try await URLSession.shared.data(for: request)
-        print("Post \(postID) reportado")
-    }
-
     func reportar(post: Post) {
         Task {
             do {
-                try await reportPost(with: viewModelLogin.tokenLogin ?? "", postID: post.id, reason: "Motivo")
+                try await viewModelPost.reportPost(with: viewModelLogin.tokenLogin ?? "", postID: post.id, reason: "Motivo")
             } catch {
                 viewModelPost.errorMessage = "Erro ao reportar: \(error.localizedDescription)"
             }
@@ -83,7 +69,7 @@ struct PostView: View {
                 .padding(.bottom, -400)
             
             HStack {
-                if post.user == user { // se for autoral deleta se for dos outros reporta
+                if post.user == user {
                     Button(action: {
                         Task {
                             do {
@@ -102,7 +88,7 @@ struct PostView: View {
                     Button(action: {
                         Task {
                             do {
-                                try await reportPost(with: viewModelLogin.tokenLogin ?? "", postID: post.id, reason: "Motivo")
+                                try await viewModelPost.reportPost(with: viewModelLogin.tokenLogin ?? "", postID: post.id, reason: "Motivo")
                             } catch {
                                 viewModelPost.errorMessage = "Erro ao reportar: \(error.localizedDescription)"
                             }
@@ -201,6 +187,7 @@ struct PostView: View {
                     likingUsers = users
                     isLiked = likingUsers.contains(where: { $0.id == user.id })
                 }
+                
             }
         }
         .padding(.top, -60)

@@ -29,15 +29,15 @@ class ReportViewModel: ObservableObject {
     }
     
     func fetchReports(postID: UUID) async {
-            do {
-                let reports = try await API.searchReports( postID: postID)
-                DispatchQueue.main.async {
-                    self.reports = reports
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    print("erro pegando reports: \(error)")
-                }
+        do {
+            let reports = try await API.searchReports( postID: postID)
+            DispatchQueue.main.async {
+                self.reports = reports
+            }
+        } catch {
+            DispatchQueue.main.async {
+                print("erro pegando reports: \(error)")
             }
         }
+    }
 }

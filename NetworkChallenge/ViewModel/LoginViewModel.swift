@@ -84,7 +84,7 @@ class LoginViewModel: ObservableObject {
         
     }
     
-        func logout(with token: String) async throws {
+    func logout(with token: String) async throws {
         let url = API.baseURL.appending(path: "users/logout")
         
         var request = URLRequest(url: url)

@@ -44,30 +44,6 @@ class PostViewModel: ObservableObject, Identifiable, Equatable {
         }
     }
     
-//    func deletar(postID: UUID) async throws {
-//        let url = API.baseURL.appending(path: "posts/\(postID.uuidString)")
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "DELETE"
-//        request.allHTTPHeaderFields = [
-//            "Authorization": "Bearer \(viewModelLogin.tokenLogin ?? "")"
-//        ]
-//        let (data, response) = try await URLSession.shared.data(for: request)
-//    }
-//
-//    func deletePost(_ indexSet: IndexSet) {
-//        for index in indexSet {
-//            let post = posts[index]
-//            Task {
-//                do {
-//                    try await deletar( postID: post.id)
-//                    posts.remove(at: index)
-//                } catch {
-//                    errorMessage = "erro de deletar: \(error.localizedDescription)"
-//                }
-//            }
-//        }
-//    }
-    
     func createPost(text: String, with token: String) async throws -> Post {
         let url = API.baseURL.appendingPathComponent("posts")
 
@@ -142,5 +118,18 @@ class PostViewModel: ObservableObject, Identifiable, Equatable {
         }
         
         return users
+    }
+    
+    func reportPost(with token: String, postID: UUID, reason: String) async throws {
+        let url = API.baseURL.appendingPathComponent("reports/\(postID)")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = try JSONEncoder().encode(reason)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        _ = try await URLSession.shared.data(for: request)
+        print("Post \(postID) reportado")
     }
 }

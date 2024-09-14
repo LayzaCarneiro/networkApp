@@ -105,7 +105,7 @@ struct TimeLineView: View {
                     
                     ScrollView {
                         ForEach(filteredPosts) { post in
-                            PostView(text: extractedString(from: post.text), viewModel: viewModel, textCount: textCount, viewModelPost: viewModelPost, post: post, userToken: viewModelLogin.tokenLogin!, user: viewModelLogin.user, insetoSelecionado: $insetoSelecionado, avatarURL: avatarURL)
+                            PostView(text: extractedString(from: post.text), viewModel: viewModel, textCount: textCount, viewModelPost: viewModelPost, post: post, userToken: viewModelLogin.tokenLogin!, user: viewModelLogin.user, insetoSelecionado: $insetoSelecionado)
                         }
                     }
                 }
