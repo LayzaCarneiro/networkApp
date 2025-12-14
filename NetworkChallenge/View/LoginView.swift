@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject private var viewModelLogin = LoginViewModel()
-    @ObservedObject var viewModelUser = UserViewModel()
+    @StateObject private var viewModelLogin = LoginViewModel()
 
     @State private var navFeed = false
     
@@ -122,11 +121,6 @@ struct LoginView: View {
                 }
                 .navigationDestination(isPresented: $navFeed) {
                     HomeView(viewModelLogin: viewModelLogin)
-                }
-            }
-            .onAppear {
-                Task {
-                    await viewModelUser.fetchUsers()
                 }
             }
         }

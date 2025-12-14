@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State var isAceso: Bool = false
     @ObservedObject var viewModelLogin: LoginViewModel
-    @StateObject var viewModelPost = PostViewModel()
-    @State var navLogout = false
+//    @StateObject var viewModelPost = PostViewModel()
     
+    @State var isAceso: Bool = false
+    @State var navLogout = false
     @State var comunidadeSel: String = ""
 
     let comunidades: [String: String] = [

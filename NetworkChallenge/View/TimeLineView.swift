@@ -16,7 +16,7 @@ struct TimeLineView: View {
     @StateObject var viewModelPost = PostViewModel()
     @StateObject var viewModelUser = UserViewModel()
     @StateObject var viewModelReport = ReportViewModel()
-    @StateObject var viewModelLogin = LoginViewModel()
+    @ObservedObject var viewModelLogin = LoginViewModel()
     
     @State var avatarURL: URL?
     @State var insetoSelecionado: String = ""
@@ -109,22 +109,15 @@ struct TimeLineView: View {
                         }
                     }
                 }
-                .onChange(of: viewModelPost.posts) { _ in
-                    
-                    print("Posts updated")
-                }
-                .onAppear {
-                    Task {
-                        do {
-                            try await viewModelPost.fetchPosts()
-                            try await viewModelUser.fetchUsers()
-                        } catch {
-                            viewModelPost.errorMessage = "erro carregar posts: \(error.localizedDescription)"
-                        }
-                    }
-                }
             }
             .onAppear {
+                Task {
+                    do {
+                        await viewModelPost.fetchPosts()
+                        await viewModelUser.fetchUsers()
+                    }
+                }
+                
                 if let avatarString = viewModelUser.user?.avatar, !avatarString.isEmpty {
                     avatarURL = URL(string: "\(API.baseURL)/\(avatarString)")
                 }
@@ -136,7 +129,6 @@ struct TimeLineView: View {
 class CharacterViewModel: ObservableObject {
     @Published var selectedCharacter: String? = nil
 }
-
 
 #Preview {
     TimeLineView()
